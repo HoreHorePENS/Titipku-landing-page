@@ -7,5 +7,5 @@ export const LINKS = {
   daftar: "/daftar",
   demo: "/masuk?demo=1",
   // TODO(kontak): ganti [EMAIL TIM] dengan alamat email tim yang asli.
-  kontak: "mailto:[EMAIL TIM]",
+  kontak: "mailto:ammararsyad1205@gmail.com",
 } as const;
