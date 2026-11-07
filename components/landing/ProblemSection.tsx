@@ -1,18 +1,6 @@
-import fs from "node:fs";
-import path from "node:path";
-import Image from "next/image";
+import { NotebookSketch } from "./NotebookSketch";
 import { PhoneVisitMock } from "./PhoneVisitMock";
 import { container, Copy, SectionTitle } from "./ui";
-
-/**
- * TODO(foto): taruh foto asli di public/landing/buku-tulis.jpg.
- * Selama file belum ada, ditampilkan blok placeholder berarsir sesuai desain.
- * Pengecekan berjalan saat build (halaman ini dirender statis).
- */
-const NOTEBOOK_PHOTO = "/landing/buku-tulis.jpg";
-const HAS_NOTEBOOK_PHOTO = fs.existsSync(
-  path.join(process.cwd(), "public", NOTEBOOK_PHOTO),
-);
 
 const POINTS = [
   {
@@ -32,32 +20,6 @@ const POINTS = [
   },
 ];
 
-function NotebookPhoto() {
-  if (HAS_NOTEBOOK_PHOTO) {
-    return (
-      // Bingkai sama dengan placeholder di desain: tinggi 240 px (mobile) /
-      // 440 px (desktop) selebar kolom; foto dipotong rapi dengan object-cover.
-      <div className="relative h-[240px] overflow-hidden rounded-md md:h-[440px]">
-        <Image
-          src={NOTEBOOK_PHOTO}
-          alt="Buku tulis catatan titipan warung"
-          fill
-          sizes="(min-width: 1440px) 584px, (min-width: 768px) 45vw, 50vw"
-          className="object-cover"
-        />
-      </div>
-    );
-  }
-  return (
-    <div className="flex h-[240px] items-end rounded-md p-2 font-mono text-[10px] text-ink-muted hatch-sm md:h-[440px] md:p-4 md:text-xs md:hatch">
-      <Copy
-        mobile="foto: buku tulis penuh coretan"
-        desktop="foto: buku tulis catatan titipan Warung Bu Sri, angka dicoret-coret"
-      />
-    </div>
-  );
-}
-
 export function ProblemSection() {
   return (
     <section id="masalah" aria-labelledby="masalah-title" className="border-t border-line">
@@ -74,7 +36,7 @@ export function ProblemSection() {
             <h3 className="text-[11px] font-bold tracking-[0.05em] text-ink-muted uppercase md:text-ink-subtle md:text-[13px]">
               <Copy mobile="Sebelum" desktop="Sebelum · buku tulis" />
             </h3>
-            <NotebookPhoto />
+            <NotebookSketch caption="Ilustrasi: catatan titipan di buku tulis" />
           </div>
           <div className="flex flex-col gap-1.5 md:gap-3.5 md:bg-paper md:p-7">
             <h3 className="text-[11px] font-bold tracking-[0.05em] text-primary uppercase md:text-[13px]">

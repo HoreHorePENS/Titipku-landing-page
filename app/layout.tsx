@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
+import { Caveat, IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -11,6 +11,13 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+});
+
+// Tulisan tangan untuk ilustrasi buku tulis; di bawah lipatan, jadi tidak di-preload.
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  preload: false,
 });
 
 const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -31,7 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="id"
-      className={`${jakarta.variable} ${plexMono.variable} antialiased`}
+      className={`${jakarta.variable} ${plexMono.variable} ${caveat.variable} antialiased`}
     >
       <body className="min-h-dvh bg-paper text-ink">{children}</body>
     </html>

@@ -9,8 +9,7 @@ Repositori ini berisi **landing page** Titipku di route `/`. Halaman ini dibuat 
 - [Next.js](https://nextjs.org/) (App Router), dirender statis
 - TypeScript
 - Tailwind CSS v4 (design token di `app/globals.css`)
-- `next/font`: Plus Jakarta Sans (teks UI) dan IBM Plex Mono (angka, nomor nota, nominal uang)
-- `next/image` untuk foto
+- `next/font`: Plus Jakarta Sans (teks UI), IBM Plex Mono (angka, nomor nota, nominal uang), dan Caveat (tulisan tangan di ilustrasi buku tulis)
 
 ## Cara menjalankan
 
@@ -45,6 +44,7 @@ components/landing/
   SiteHeader.tsx        Header + navigasi anchor
   Hero.tsx              Hero dengan mockup HP dan nota
   ProblemSection.tsx    "Satu warung, satu halaman buku…"
+  NotebookSketch.tsx    Ilustrasi halaman buku tulis (HTML/CSS, tanpa gambar)
   HowItWorksSection.tsx "Lima menit di depan rak"
   FeaturesSection.tsx   "Yang dipakai tiap minggu"
   ClosingCta.tsx        CTA penutup
@@ -52,7 +52,7 @@ components/landing/
   PhoneVisitMock.tsx    Mockup HP layar Catat Kunjungan (komponen statis)
   ReceiptMock.tsx       Potongan nota bercap status pembayaran (komponen statis)
 public/
-  landing/              Aset gambar landing page (lihat catatan foto di bawah)
+  favicon & aset statis
 ```
 
 ## Section halaman
@@ -74,11 +74,11 @@ Semua tautan ada di `LINKS` dalam `components/landing/content.ts`:
 | `masuk`  | `/masuk`             |
 | `daftar` | `/daftar`            |
 | `demo`   | `/masuk?demo=1`      |
-| `kontak` | `mailto:[EMAIL TIM]` |
+| `kontak` | `mailto:ammararsyad1205@gmail.com` |
 
-### Foto buku tulis
+### Ilustrasi buku tulis
 
-Taruh foto di `public/landing/buku-tulis.jpg`, lalu jalankan build ulang. Jika file ada, foto ditampilkan dengan `next/image` dalam bingkai yang sama seperti desain. Jika belum ada, ditampilkan placeholder berarsir.
+Panel "Sebelum" memakai ilustrasi halaman buku tulis yang dibuat dengan HTML/CSS (`NotebookSketch.tsx`), bukan foto. Isi catatannya berupa teks HTML sehingga tetap bisa dibaca pembaca layar.
 
 ## Aksesibilitas & performa
 
