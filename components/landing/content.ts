@@ -9,7 +9,7 @@ export const LINKS = {
   daftar: "/daftar",
   daftarPenitip: "/daftar?peran=penitip",
   daftarWarung: "/daftar?peran=warung",
-  demo: "/masuk?demo=1",
+  cobaDemo: "/masuk?demo=1",
   kontak: "mailto:ammararsyad1205@gmail.com",
 } as const;
 
@@ -17,7 +17,33 @@ export const LINKS = {
 export const META = {
   title: "Titipku — Titip jual tanpa keliling tanya satu-satu",
   description:
-    "Titipku mempertemukan penitip (produsen camilan dan UMKM) dengan warung yang membuka titipan. Ajukan titip, terima atau tolak, lalu pantau stok, terjual, dan tagihan dari HP.",
+    "Titipku mempertemukan penitip (produsen camilan dan UMKM) dengan warung yang membuka titipan. Penitip mengajukan titip dari HP, warung menerima atau menolak, lalu stok, barang terjual, dan tagihan tercatat untuk keduanya.",
+  ogTitle: "Titipku — Penitip ketemu warung yang membuka titipan",
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* Header, CTA penutup, footer                                         */
+/* ------------------------------------------------------------------ */
+
+export const HEADER = {
+  nav: [
+    { href: "#cara-kerja", label: "Cara kerja" },
+    { href: "#manfaat", label: "Manfaat" },
+    { href: "#faq", label: "FAQ" },
+  ],
+  navLabel: "Navigasi utama",
+  masuk: "Masuk",
+  daftar: "Daftar",
+} as const;
+
+export const CLOSING_CTA = {
+  title: "Mulai titip, atau buka titipan di warungmu.",
+} as const;
+
+export const FOOTER = {
+  brand: "Titipku",
+  tagline: "Dibuat untuk GTNIC 2026",
+  kontak: "Kontak",
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -31,7 +57,7 @@ export const HERO = {
     "Penitip menemukan warung yang membuka titipan, warung mendapat pemasukan tambahan. Pengajuan, persetujuan, sampai pantau barang titipan, semuanya dari HP.",
   ctaPenitip: "Cari warung untuk titip",
   ctaWarung: "Daftarkan warung saya",
-  demo: "Coba Demo",
+  cobaDemo: "Coba Demo",
   note: "Jalan di HP Android biasa. Tetap bisa mencatat saat sinyal lemah.",
   /** Deskripsi visual hero untuk pembaca layar. */
   visualLabel:
@@ -286,15 +312,109 @@ export const STEP_CARDS = {
   },
   share: {
     label:
-      "Contoh perhitungan: penjualan barang titipan Rp143.000, bagian warung 15 persen sesuai kesepakatan Rp21.450, disetor ke penitip Rp121.550.",
-    rows: [
-      { label: "Penjualan titipan", value: "Rp143.000" },
-      { label: "Disetor ke penitip", value: "Rp121.550" },
-    ],
-    total: { label: "Bagian warung (15%)", value: "Rp21.450" },
-    note: "Persentase contoh, mengikuti kesepakatan.",
+      "Contoh: penjualan barang titipan Rp143.000 di Warung Bu Sri, bagi hasil sesuai kesepakatan dengan penitip.",
+    rows: [{ label: "Penjualan titipan", value: "Rp143.000" }],
+    note: "Bagi hasil sesuai kesepakatan",
   },
 } as const satisfies Record<StepCardId, { label: string; [key: string]: unknown }>;
+
+/* ------------------------------------------------------------------ */
+/* Manfaat (#manfaat)                                                  */
+/* ------------------------------------------------------------------ */
+
+export const BENEFITS = {
+  title: "Untung buat dua-duanya",
+  columns: [
+    {
+      role: "Penitip",
+      title: "Tambah titik jualan tanpa keliling",
+      points: [
+        "Cari warung berdasarkan area",
+        "Ajukan titip dari HP",
+        "Pantau stok, terjual, dan tagihan di setiap warung",
+      ],
+    },
+    {
+      role: "Warung",
+      title: "Rak terisi, pemasukan bertambah",
+      points: [
+        "Tentukan sendiri titipan yang diterima",
+        "Terima atau tolak setiap permintaan",
+        "Dapat bagi hasil dari barang yang laku, tanpa modal stok",
+      ],
+    },
+  ],
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* Fitur (#fitur)                                                      */
+/* ------------------------------------------------------------------ */
+
+export const FEATURES = {
+  title: "Yang dipakai tiap minggu",
+  main: {
+    title: "Cari warung",
+    desktop:
+      "Daftar warung di sekitar area yang dipilih, lengkap dengan jenis produk yang diterima dan status titipannya.",
+    mobile: "Lihat warung di sekitar yang membuka titipan, lalu ajukan titip dari HP.",
+    checks: [
+      "Saring berdasarkan area dan jenis produk",
+      "Label Buka titipan atau Penuh di setiap warung",
+      "Ajukan titip langsung dari kartu warung",
+    ],
+  },
+  small: [
+    {
+      title: "Pengajuan & persetujuan",
+      desktop: "Permintaan titip berisi produk dan jumlahnya. Warung menerima atau menolak.",
+      mobile: "Warung menerima atau menolak.",
+    },
+    {
+      title: "Pantau barang titipan",
+      desktop: "Sisa di rak, retur, dan barang terjual tercatat untuk setiap warung.",
+      mobile: "Sisa, retur, dan terjual per warung.",
+    },
+    {
+      title: "Nota & tagihan",
+      desktop: "Tagihan dihitung dari barang terjual; sisa yang belum dibayar ikut di nota berikutnya.",
+      mobile: "Tagihan dihitung dari barang terjual.",
+    },
+  ],
+} as const;
+
+/* ------------------------------------------------------------------ */
+/* FAQ (#faq)                                                          */
+/* ------------------------------------------------------------------ */
+
+export const FAQ = {
+  title: "Pertanyaan umum",
+  items: [
+    {
+      q: "Apakah warung harus mendaftar?",
+      a: "Ya, warung mendaftar agar muncul di pencarian penitip dan bisa menerima atau menolak permintaan titip.",
+    },
+    {
+      q: "Apakah warung bisa menolak titipan?",
+      a: "Bisa. Setiap permintaan titip harus disetujui warung lebih dulu.",
+    },
+    {
+      q: "Apakah penitip perlu datang ke warung untuk bertanya?",
+      a: "Tidak. Penitip melihat warung yang membuka titipan dan mengajukan permintaan dari HP. Penitip datang saat mengantar barang yang sudah disetujui.",
+    },
+    {
+      q: "Bagaimana pembagian hasilnya?",
+      a: "Sesuai kesepakatan penitip dan warung. Titipku mencatat barang terjual dan tagihannya.",
+    },
+    {
+      q: "Apakah perlu menginstal aplikasi?",
+      a: "Tidak. Titipku dibuka dari browser di HP atau laptop.",
+    },
+    {
+      q: "Apakah data saya aman?",
+      a: "Data setiap akun dipisahkan dan hanya bisa dibuka oleh pemiliknya.",
+    },
+  ],
+} as const;
 
 /* ------------------------------------------------------------------ */
 /* Tim                                                                 */

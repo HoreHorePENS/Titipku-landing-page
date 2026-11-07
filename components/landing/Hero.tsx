@@ -33,11 +33,11 @@ export function Hero() {
           </div>
           <p className="-mt-1 flex flex-wrap items-center gap-x-3 text-sm text-ink-muted md:-mt-2">
             <Link
-              href={LINKS.demo}
+              href={LINKS.cobaDemo}
               prefetch={false}
               className={`${textLink} font-semibold text-primary underline underline-offset-2`}
             >
-              {HERO.demo} →
+              {HERO.cobaDemo} →
             </Link>
             <span className="max-md:hidden">{HERO.note}</span>
           </p>

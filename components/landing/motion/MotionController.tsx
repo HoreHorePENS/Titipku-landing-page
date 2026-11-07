@@ -6,8 +6,8 @@ import { useEffect } from "react";
  * Animasi masuk & interaksi kecil landing page (tanpa library).
  *
  * - [data-reveal]: muncul halus saat pertama kali terlihat (sekali saja).
- * - [data-steps]: linimasa section "Cara kerja" (garis → kartu 1, 2, 3 →
- *   indikator mengetik → gelembung WhatsApp). Detailnya di globals.css.
+ * - [data-steps]: linimasa section "Cara kerja" (garis → kartu 1–4 berurutan).
+ *   Diputar ulang oleh RoleTabs saat tab berganti. Detailnya di globals.css.
  * - details[data-faq]: transisi saat accordion ditutup.
  *
  * Prinsip: HTML server selalu menampilkan keadaan akhir. Elemen baru

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { META } from "@/components/landing/content";
 import { Caveat, IBM_Plex_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -30,8 +31,7 @@ export const metadata: Metadata = {
     default: "Titipku",
     template: "%s · Titipku",
   },
-  description:
-    "Catat titipan di puluhan warung, tagihan dihitung otomatis, nota langsung terkirim ke WhatsApp.",
+  description: META.description,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

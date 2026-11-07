@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { SHOP_LIST, STEP_CARDS as C, type StepCardId } from "./content";
-import { PRODUCTS, ProductCard } from "./PhoneVisitMock";
+import { PRODUCT, ProductCard } from "./ProductCard";
 import { RequestCardMock } from "./RequestCardMock";
 import { ShopCard, ShopSearch } from "./ShopListMock";
 
@@ -76,7 +76,7 @@ const BODY: Record<StepCardId, ReactNode> = {
       <span className="text-xs font-semibold text-primary">{C.deliver.note}</span>
     </>
   ),
-  monitor: <ProductCard p={PRODUCTS[0]} compact />,
+  monitor: <ProductCard p={PRODUCT} />,
 
   /* ---------------- Warung ---------------- */
   register: (
@@ -125,8 +125,7 @@ const BODY: Record<StepCardId, ReactNode> = {
         <Line key={row.label} label={row.label} value={row.value} />
       ))}
       <div className="border-t border-dashed border-line-dashed" />
-      <Line label={C.share.total.label} value={C.share.total.value} strong />
-      <span className="text-[11px] text-ink-muted">{C.share.note}</span>
+      <span className="font-bold">{C.share.note}</span>
     </div>
   ),
 };

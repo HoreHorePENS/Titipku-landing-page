@@ -3,7 +3,7 @@ import { SHOP_LIST, type Shop } from "./content";
 
 /**
  * Mockup HP statis berisi layar "Cari warung" (sisi penitip). Ukuran asli
- * 316 × 636 px, sama dengan PhoneVisitMock; atur skala lewat pembungkus.
+ * 316 × 636 px; atur skala lewat pembungkus.
  * Isi dekoratif untuk pembaca layar; deskripsinya lewat `label`.
  *
  * Atribut data-shop-card / data-pick / data-ajukan dipakai animasi hero

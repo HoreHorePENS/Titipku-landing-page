@@ -24,7 +24,6 @@
   --notebook-rule: #bfdbfe; /* garis biru muda */
   --notebook-margin: #f9a8b4; /* garis margin merah muda */
   --ink-pen: #1e3a8a; /* tinta tulisan tangan */
-  --chat-bubble: #dcf8c6; /* gelembung chat bergaya WhatsApp */
   --hatch-a: #efe8da;
   --hatch-b: #f7f3ea;
 }
@@ -48,7 +47,6 @@
   --color-notebook: var(--notebook);
   --color-notebook-margin: var(--notebook-margin);
   --color-ink-pen: var(--ink-pen);
-  --color-chat-bubble: var(--chat-bubble);
   --color-hatch-a: var(--hatch-a);
   --color-hatch-b: var(--hatch-b);
 
@@ -79,18 +77,6 @@ body {
 /* Arsiran thumbnail produk di mockup HP. */
 @utility hatch-xs {
   background: repeating-linear-gradient(135deg, var(--hatch-a) 0 4px, var(--hatch-b) 4px 8px);
-}
-
-/* Tepi bergerigi kertas nota. --edge-w / --edge-h diatur per varian. */
-@utility receipt-edge-top {
-  height: var(--edge-h, 7px);
-  background: conic-gradient(from 135deg at 50% 100%, #ffffff 90deg, transparent 0) 0 0 /
-    var(--edge-w, 12px) var(--edge-h, 7px) repeat-x;
-}
-@utility receipt-edge-bottom {
-  height: var(--edge-h, 7px);
-  background: conic-gradient(from -45deg at 50% 0, #ffffff 90deg, transparent 0) 0 0 /
-    var(--edge-w, 12px) var(--edge-h, 7px) repeat-x;
 }
 
 /* ------------------------------------------------------------------ */

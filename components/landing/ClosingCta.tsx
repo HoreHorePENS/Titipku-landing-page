@@ -1,4 +1,4 @@
-import { LINKS } from "./content";
+import { CLOSING_CTA, HERO, LINKS } from "./content";
 import { ButtonLink, container } from "./ui";
 
 export function ClosingCta() {
@@ -10,16 +10,14 @@ export function ClosingCta() {
         <h2
           id="cta-title"
           data-reveal=""
-          className="text-2xl leading-[30px] font-extrabold md:text-[32px] md:leading-10 md:tracking-[-0.02em]"
+          className="max-w-[640px] text-2xl leading-[30px] font-extrabold text-balance md:text-[32px] md:leading-10 md:tracking-[-0.02em]"
         >
-          Tutup buku tulisnya minggu ini.
+          {CLOSING_CTA.title}
         </h2>
-        <div data-reveal="" className="flex gap-3">
-          <ButtonLink href={LINKS.daftar} className="max-md:w-full">
-            Daftar Gratis
-          </ButtonLink>
-          <ButtonLink href={LINKS.demo} variant="secondary" className="max-md:hidden">
-            Coba Demo
+        <div data-reveal="" className="flex flex-col gap-2 md:flex-row md:gap-3">
+          <ButtonLink href={LINKS.daftarPenitip}>{HERO.ctaPenitip}</ButtonLink>
+          <ButtonLink href={LINKS.daftarWarung} variant="secondary">
+            {HERO.ctaWarung}
           </ButtonLink>
         </div>
       </div>
