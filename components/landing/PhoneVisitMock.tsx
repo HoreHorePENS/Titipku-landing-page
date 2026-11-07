@@ -30,7 +30,7 @@ type Product = {
   photo?: string;
 };
 
-const PRODUCTS: Product[] = [
+export const PRODUCTS: Product[] = [
   {
     name: "Keripik Pisang Original 100 g",
     previous: 25,
@@ -80,7 +80,11 @@ function Row({ label, value }: { label: string; value: number }) {
   );
 }
 
-function ProductCard({ p }: { p: Product }) {
+/**
+ * Kartu produk layar Catat Kunjungan. `compact` menghilangkan baris
+ * "Titip baru" dan saran (dipakai di kartu langkah "Cara kerja").
+ */
+export function ProductCard({ p, compact = false }: { p: Product; compact?: boolean }) {
   return (
     <div className="flex flex-col gap-2 rounded-lg border border-line bg-surface p-2.5">
       <div className="flex items-center gap-2">
@@ -111,8 +115,8 @@ function ProductCard({ p }: { p: Product }) {
         </span>
         <span className="font-mono tabular-nums">{p.amount}</span>
       </div>
-      {p.newStock !== undefined && <Row label="Titip baru" value={p.newStock} />}
-      {p.suggestion && (
+      {!compact && p.newStock !== undefined && <Row label="Titip baru" value={p.newStock} />}
+      {!compact && p.suggestion && (
         <span className="text-[10px] font-semibold text-primary underline">
           {p.suggestion}
         </span>

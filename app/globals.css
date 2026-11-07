@@ -24,6 +24,7 @@
   --notebook-rule: #bfdbfe; /* garis biru muda */
   --notebook-margin: #f9a8b4; /* garis margin merah muda */
   --ink-pen: #1e3a8a; /* tinta tulisan tangan */
+  --chat-bubble: #dcf8c6; /* gelembung chat bergaya WhatsApp */
   --hatch-a: #efe8da;
   --hatch-b: #f7f3ea;
 }
@@ -47,6 +48,7 @@
   --color-notebook: var(--notebook);
   --color-notebook-margin: var(--notebook-margin);
   --color-ink-pen: var(--ink-pen);
+  --color-chat-bubble: var(--chat-bubble);
   --color-hatch-a: var(--hatch-a);
   --color-hatch-b: var(--hatch-b);
 
