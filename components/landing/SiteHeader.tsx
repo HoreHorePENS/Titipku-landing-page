@@ -3,9 +3,11 @@ import { LINKS } from "./content";
 import { ButtonLink, container, textLink } from "./ui";
 
 const NAV = [
+  { href: "#untuk-siapa", label: "Untuk siapa" },
   { href: "#masalah", label: "Masalahnya" },
   { href: "#cara-kerja", label: "Cara kerja" },
   { href: "#fitur", label: "Fitur" },
+  { href: "#faq", label: "FAQ" },
 ];
 
 export function SiteHeader() {
@@ -19,7 +21,7 @@ export function SiteHeader() {
           Titipku
         </Link>
         <nav aria-label="Navigasi utama" className="max-md:hidden">
-          <ul className="flex gap-8 text-sm font-semibold">
+          <ul className="flex gap-5 text-sm font-semibold whitespace-nowrap lg:gap-8">
             {NAV.map((item) => (
               <li key={item.href}>
                 <a href={item.href} className={textLink}>

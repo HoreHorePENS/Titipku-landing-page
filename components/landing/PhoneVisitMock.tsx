@@ -5,6 +5,19 @@
  * lewat `label`.
  */
 
+import fs from "node:fs";
+import path from "node:path";
+import Image from "next/image";
+
+/**
+ * Foto produk dari /public. Foto hanya dipakai jika file-nya ada saat build;
+ * jika belum ada, tetap tampil kotak placeholder berarsir.
+ * TODO(foto): tambahkan public/landing/produk/original.jpg dan balado.jpg.
+ */
+function photoIfExists(src: string): string | undefined {
+  return fs.existsSync(path.join(process.cwd(), "public", src)) ? src : undefined;
+}
+
 type Product = {
   name: string;
   previous: number;
@@ -14,6 +27,7 @@ type Product = {
   amount: string;
   newStock?: number;
   suggestion?: string;
+  photo?: string;
 };
 
 const PRODUCTS: Product[] = [
@@ -26,6 +40,7 @@ const PRODUCTS: Product[] = [
     amount: "Rp51.000",
     newStock: 18,
     suggestion: "Saran: 18 (laku ±3/hari)",
+    photo: photoIfExists("/landing/produk/original.jpg"),
   },
   {
     name: "Keripik Pisang Balado 100 g",
@@ -33,6 +48,7 @@ const PRODUCTS: Product[] = [
     remaining: 4,
     sold: 16,
     amount: "Rp56.000",
+    photo: photoIfExists("/landing/produk/balado.jpg"),
   },
 ];
 
@@ -68,7 +84,17 @@ function ProductCard({ p }: { p: Product }) {
   return (
     <div className="flex flex-col gap-2 rounded-lg border border-line bg-surface p-2.5">
       <div className="flex items-center gap-2">
-        <div className="hatch-xs size-[34px] shrink-0 rounded-md" />
+        {p.photo ? (
+          <Image
+            src={p.photo}
+            alt={p.name}
+            width={34}
+            height={34}
+            className="size-[34px] shrink-0 rounded-md object-cover"
+          />
+        ) : (
+          <div className="hatch-xs size-[34px] shrink-0 rounded-md" />
+        )}
         <div className="flex flex-col">
           <span className="text-xs font-bold">{p.name}</span>
           <span className="text-[10px] text-ink-subtle">

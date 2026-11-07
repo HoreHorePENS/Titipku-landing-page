@@ -43,13 +43,17 @@ components/landing/
   ui.tsx                Container, tombol, judul section, copy mobile/desktop
   SiteHeader.tsx        Header + navigasi anchor
   Hero.tsx              Hero dengan mockup HP dan nota
+  AudienceStrip.tsx     "Untuk siapa"
   ProblemSection.tsx    "Satu warung, satu halaman buku…"
   NotebookSketch.tsx    Ilustrasi halaman buku tulis (HTML/CSS, tanpa gambar)
   HowItWorksSection.tsx "Lima menit di depan rak"
+  OwnerAndShopSection.tsx "Untuk pemilik, untuk warung"
   FeaturesSection.tsx   "Yang dipakai tiap minggu"
+  FaqSection.tsx        "Pertanyaan umum"
   ClosingCta.tsx        CTA penutup
   SiteFooter.tsx        Footer
   PhoneVisitMock.tsx    Mockup HP layar Catat Kunjungan (komponen statis)
+  DashboardMock.tsx     Mockup ringkasan untuk pemilik (komponen statis)
   ReceiptMock.tsx       Potongan nota bercap status pembayaran (komponen statis)
 public/
   favicon & aset statis
@@ -57,13 +61,16 @@ public/
 
 ## Section halaman
 
-1. **Header**: logo, menu Masalahnya / Cara kerja / Fitur (scroll halus ke `#masalah`, `#cara-kerja`, `#fitur`), Masuk, Daftar Gratis. Di mobile hanya logo + Masuk.
+1. **Header**: logo, menu Untuk siapa / Masalahnya / Cara kerja / Fitur / FAQ (scroll halus ke `#untuk-siapa`, `#masalah`, `#cara-kerja`, `#fitur`, `#faq`), Masuk, Daftar Gratis. Di mobile hanya logo + Masuk.
 2. **Hero**: judul, tombol Daftar Gratis & Coba Demo, mockup HP layar Catat Kunjungan + nota bercap BELUM LUNAS.
-3. **Masalahnya**: perbandingan sebelum (buku tulis) dan sesudah (Titipku) + 3 poin.
-4. **Cara kerja**: 3 langkah bernomor yang terhubung garis.
-5. **Fitur**: 1 fitur besar (Catat Kunjungan) + 3 fitur kecil.
-6. **CTA penutup**: "Tutup buku tulisnya minggu ini."
-7. **Footer**
+3. **Untuk siapa**: strip ringkas jenis usaha yang cocok.
+4. **Masalahnya**: perbandingan sebelum (ilustrasi buku tulis) dan sesudah (Titipku) + 3 poin.
+5. **Cara kerja**: 3 langkah bernomor yang terhubung garis.
+6. **Untuk pemilik, untuk warung**: mockup ringkasan pemilik dan nota yang diterima warung.
+7. **Fitur**: 1 fitur besar (Catat Kunjungan) + 3 fitur kecil.
+8. **Pertanyaan umum**: accordion `<details>/<summary>` yang bisa dibuka dengan keyboard.
+9. **CTA penutup**: "Tutup buku tulisnya minggu ini."
+10. **Footer**
 
 ### Mengubah tautan
 
@@ -83,11 +90,11 @@ Panel "Sebelum" memakai ilustrasi halaman buku tulis yang dibuat dengan HTML/CSS
 ## Aksesibilitas & performa
 
 - HTML semantik: `header`, `main`, `section` dengan heading berurutan, `footer`.
-- Mockup HP dan nota diberi deskripsi teks untuk pembaca layar.
+- Mockup HP, nota, dan ringkasan pemilik diberi deskripsi teks untuk pembaca layar.
 - Fokus keyboard terlihat, target sentuh minimal 44 px, kontras teks memenuhi WCAG AA.
 - Scroll halus dimatikan untuk pengguna dengan `prefers-reduced-motion`.
 - Responsif tanpa scroll horizontal di lebar 360–1440 px.
-- Skor Lighthouse (mobile, build produksi lokal): **Performance 98, Accessibility 100, Best Practices 100, SEO 100**.
+- Skor Lighthouse (mobile, build produksi lokal): **Performance 96, Accessibility 100, Best Practices 100, SEO 100**.
 
 ## Tautan
 

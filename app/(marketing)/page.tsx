@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { AudienceStrip } from "@/components/landing/AudienceStrip";
 import { ClosingCta } from "@/components/landing/ClosingCta";
+import { FaqSection } from "@/components/landing/FaqSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { Hero } from "@/components/landing/Hero";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
+import { OwnerAndShopSection } from "@/components/landing/OwnerAndShopSection";
 import { ProblemSection } from "@/components/landing/ProblemSection";
 import { SiteFooter } from "@/components/landing/SiteFooter";
 import { SiteHeader } from "@/components/landing/SiteHeader";
@@ -36,9 +39,12 @@ export default function LandingPage() {
       <SiteHeader />
       <main>
         <Hero />
+        <AudienceStrip />
         <ProblemSection />
         <HowItWorksSection />
+        <OwnerAndShopSection />
         <FeaturesSection />
+        <FaqSection />
         <ClosingCta />
       </main>
       <SiteFooter />
