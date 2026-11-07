@@ -1,13 +1,15 @@
 import type { CSSProperties, ReactNode } from "react";
+import { SHOP_LIST, STEP_CARDS as C, type StepCardId } from "./content";
 import { PRODUCTS, ProductCard } from "./PhoneVisitMock";
+import { RequestCardMock } from "./RequestCardMock";
+import { ShopCard, ShopSearch } from "./ShopListMock";
 
 /**
  * Kartu visual mini untuk tiap langkah "Cara kerja" (komponen statis).
- * Isi kartu dekoratif untuk pembaca layar; angka pentingnya diringkas di
- * `aria-label`. Tinggi ketiga kartu disamakan oleh grid di HowItWorksSection.
+ * Isi kartu dekoratif untuk pembaca layar; isinya diringkas di `aria-label`.
+ * Tinggi kartu dalam satu jalur disamakan oleh grid di HowItWorksSection.
+ * `i` = urutan langkah (0–3), dipakai untuk jeda animasi muncul.
  */
-/** `i` = urutan langkah (0-2), dipakai untuk jeda animasi muncul. */
-export type StepCardProps = { i: number };
 
 function StepCard({ label, i, children }: { label: string; i: number; children: ReactNode }) {
   return (
@@ -16,11 +18,11 @@ function StepCard({ label, i, children }: { label: string; i: number; children: 
       aria-label={label}
       data-step-card=""
       style={{ "--i": i } as CSSProperties}
-      className="h-full max-w-[440px] min-w-0 lg:max-w-none"
+      className="h-full max-w-[440px] min-w-0 xl:max-w-none"
     >
       <div
         aria-hidden="true"
-        className="relative flex h-full flex-col justify-center rounded-lg border border-line bg-paper p-3 select-none md:p-4"
+        className="relative flex h-full flex-col justify-center gap-2 rounded-lg border border-line bg-paper p-3 select-none md:p-4"
       >
         {children}
       </div>
@@ -28,65 +30,111 @@ function StepCard({ label, i, children }: { label: string; i: number; children: 
   );
 }
 
-function Mono({ children }: { children: ReactNode }) {
-  return <span className="shrink-0 font-mono tabular-nums">{children}</span>;
+function Mono({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <span className={`shrink-0 font-mono tabular-nums ${className}`}>{children}</span>;
 }
 
-/** Langkah 1: potongan kartu produk dari layar Catat Kunjungan. */
-export function CountStepCard({ i }: StepCardProps) {
+/** Baris "label ... nilai" bergaya kuitansi. */
+function Line({ label, value, strong = false }: { label: string; value: string; strong?: boolean }) {
   return (
-    <StepCard i={i} label="Contoh: Keripik Pisang Original, sisa di rak 6, retur 2, terjual 17 senilai Rp51.000.">
-      <ProductCard p={PRODUCTS[0]} compact />
-    </StepCard>
+    <div className={`flex items-baseline justify-between gap-3 ${strong ? "" : "text-ink-muted"}`}>
+      <span className={strong ? "font-bold text-ink" : ""}>{label}</span>
+      <Mono className={strong ? "text-base font-semibold text-ink" : ""}>{value}</Mono>
+    </div>
   );
 }
 
-/** Langkah 2: blok bergaya kuitansi. */
-export function BillStepCard({ i }: StepCardProps) {
-  return (
-    <StepCard i={i} label="Contoh: tagihan kunjungan ini Rp143.000 ditambah sisa utang sebelumnya Rp40.000, total harus dibayar Rp183.000.">
-      <div className="flex flex-col gap-2.5 rounded-md border border-line bg-surface p-3.5 text-[13px]">
-        <div className="flex items-baseline justify-between gap-3">
-          <span>Tagihan kunjungan ini</span>
-          <Mono>Rp143.000</Mono>
-        </div>
-        <div className="flex items-baseline justify-between gap-3 text-ink-muted">
-          <span>Sisa utang sebelumnya</span>
-          <Mono>Rp40.000</Mono>
-        </div>
-        <div className="border-t border-dashed border-line-dashed" />
-        <div className="flex items-baseline justify-between gap-3">
-          <span className="font-bold">Total harus dibayar</span>
-          <span className="shrink-0 font-mono text-lg font-semibold tabular-nums">Rp183.000</span>
-        </div>
-      </div>
-    </StepCard>
-  );
-}
+const [BU_SRI, KANTIN] = SHOP_LIST.shops;
 
-/** Langkah 3: gelembung chat bergaya WhatsApp (tanpa logo). */
-export function NotaStepCard({ i }: StepCardProps) {
-  return (
-    <StepCard i={i} label="Contoh pesan WhatsApp ke Bu Sri berisi nota titipan 27 Okt 2026 dengan tagihan Rp143.000 dan tautan nota, terkirim pukul 10.42.">
-      {/* Indikator "mengetik…" (dekoratif; hanya terlihat saat animasi). */}
-      <span
-        data-typing=""
-        className="absolute top-1/2 right-3 flex -translate-y-1/2 gap-1 rounded-lg rounded-tr-sm bg-chat-bubble px-3 py-2.5 md:right-4"
-      >
-        <span className="size-1.5 rounded-full bg-ink-muted" />
-        <span className="size-1.5 rounded-full bg-ink-muted" />
-        <span className="size-1.5 rounded-full bg-ink-muted" />
+const PANEL = "flex flex-col gap-2.5 rounded-md border border-line bg-surface p-3.5 text-[13px]";
+
+const BODY: Record<StepCardId, ReactNode> = {
+  /* ---------------- Penitip ---------------- */
+  search: (
+    <>
+      <ShopSearch />
+      <ShopCard shop={BU_SRI} />
+      <ShopCard shop={KANTIN} />
+    </>
+  ),
+  apply: (
+    <div className={PANEL}>
+      <span className="font-bold">{C.apply.title}</span>
+      {C.apply.items.map((item) => (
+        <Line key={item.name} label={item.name} value={item.qty} />
+      ))}
+      <div className="border-t border-dashed border-line-dashed" />
+      <Line label={C.apply.totalLabel} value={C.apply.total} strong />
+      <span className="flex h-9 items-center justify-center rounded-md bg-primary text-xs font-bold text-white">
+        {C.apply.sent}
       </span>
-      <div
-        data-bubble=""
-        className="ml-auto flex max-w-[92%] flex-col gap-1.5 rounded-lg rounded-tr-sm bg-chat-bubble px-3 py-2.5 text-[13px] leading-[19px]">
-        <p>
-          Halo Bu Sri, berikut nota titipan Keripik Pisang Rina <Mono>27</Mono> Okt{" "}
-          <Mono>2026</Mono>. Tagihan <Mono>Rp143.000</Mono>.
-        </p>
-        <span className="font-semibold break-all text-primary underline">titipku.app/nota/q8Zt3…</span>
-        <span className="self-end font-mono text-[11px] text-ink-muted">10.42 ✓✓</span>
+    </div>
+  ),
+  deliver: (
+    <>
+      <RequestCardMock variant="compact" device={false} />
+      <span className="text-xs font-semibold text-primary">{C.deliver.note}</span>
+    </>
+  ),
+  monitor: <ProductCard p={PRODUCTS[0]} compact />,
+
+  /* ---------------- Warung ---------------- */
+  register: (
+    <div className={PANEL}>
+      <div className="flex flex-col">
+        <span className="font-bold">{C.register.name}</span>
+        <span className="text-xs text-ink-subtle">{C.register.area}</span>
       </div>
+      <div className="flex flex-wrap gap-1.5">
+        {C.register.accepts.map((t) => (
+          <span
+            key={t}
+            className="rounded-full border border-primary bg-primary-soft px-2.5 py-1 text-[11px] font-semibold text-primary"
+          >
+            {t}
+          </span>
+        ))}
+      </div>
+      <div className="flex items-center justify-between border-t border-line pt-2.5">
+        <span className="font-semibold">{C.register.toggle}</span>
+        {/* Sakelar dalam posisi aktif */}
+        <span className="flex h-5 w-9 items-center justify-end rounded-full bg-primary p-0.5">
+          <span className="size-4 rounded-full bg-surface" />
+        </span>
+      </div>
+    </div>
+  ),
+  review: <RequestCardMock variant="compact" status="pending" device={false} />,
+  sell: (
+    <div className={PANEL}>
+      <span className="font-bold">{C.sell.title}</span>
+      {C.sell.items.map((item) => (
+        <div key={item.name} className="flex items-baseline justify-between gap-3">
+          <span>{item.name}</span>
+          <span className="text-xs text-ink-muted">
+            {C.sell.soldLabel}{" "}
+            <Mono className="text-[13px] font-semibold text-ink">{item.sold}</Mono>
+          </span>
+        </div>
+      ))}
+    </div>
+  ),
+  share: (
+    <div className={PANEL}>
+      {C.share.rows.map((row) => (
+        <Line key={row.label} label={row.label} value={row.value} />
+      ))}
+      <div className="border-t border-dashed border-line-dashed" />
+      <Line label={C.share.total.label} value={C.share.total.value} strong />
+      <span className="text-[11px] text-ink-muted">{C.share.note}</span>
+    </div>
+  ),
+};
+
+export function StepVisual({ id, i }: { id: StepCardId; i: number }) {
+  return (
+    <StepCard label={C[id].label} i={i}>
+      {BODY[id]}
     </StepCard>
   );
 }

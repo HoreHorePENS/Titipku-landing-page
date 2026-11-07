@@ -1,11 +1,5 @@
+import { AUDIENCE } from "./content";
 import { container } from "./ui";
-
-const SEGMENTS = [
-  "Keripik & camilan",
-  "Kue kering",
-  "Sambal & bumbu kemasan",
-  "Frozen food",
-];
 
 export function AudienceStrip() {
   return (
@@ -14,28 +8,38 @@ export function AudienceStrip() {
       aria-labelledby="untuk-siapa-title"
       className="border-t border-line bg-surface"
     >
-      <div
-        className={`${container} flex flex-col gap-4 py-8 md:py-10 lg:flex-row lg:items-start lg:justify-between lg:gap-12`}
-      >
-        <div data-reveal="" className="flex max-w-[560px] flex-col gap-2">
-          <h2 id="untuk-siapa-title" className="text-lg leading-6 font-extrabold md:text-xl md:leading-7">
-            Dibuat untuk produsen yang menitip di banyak tempat
-          </h2>
-          <p className="text-[15px] leading-[23px] text-ink-muted">
-            Cocok untuk usaha yang menitipkan produk di 5 sampai 30 warung, kantin,
-            koperasi, atau toko oleh-oleh.
-          </p>
-        </div>
-        <ul data-reveal="" className="flex flex-wrap gap-2 lg:max-w-[600px] lg:pt-1">
-          {SEGMENTS.map((segment) => (
-            <li
-              key={segment}
-              className="rounded-md border border-line-strong bg-paper px-3 py-1.5 text-sm font-semibold"
+      <div className={`${container} flex flex-col gap-5 py-8 md:gap-6 md:py-10`}>
+        <h2
+          id="untuk-siapa-title"
+          data-reveal=""
+          className="text-lg leading-6 font-extrabold md:text-xl md:leading-7"
+        >
+          {AUDIENCE.title}
+        </h2>
+        <div className="grid gap-3 md:grid-cols-2 md:gap-6">
+          {AUDIENCE.groups.map((group) => (
+            <div
+              key={group.title}
+              data-reveal=""
+              className="flex flex-col gap-3 rounded-lg border border-line bg-paper p-4 md:p-5"
             >
-              {segment}
-            </li>
+              <div className="flex flex-col gap-0.5">
+                <h3 className="text-base font-bold md:text-[17px]">{group.title}</h3>
+                <p className="text-sm leading-[21px] text-ink-muted">{group.desc}</p>
+              </div>
+              <ul className="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <li
+                    key={item}
+                    className="rounded-md border border-line-strong bg-surface px-3 py-1.5 text-sm font-semibold"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );

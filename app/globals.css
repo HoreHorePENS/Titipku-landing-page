@@ -95,17 +95,14 @@ body {
 
 /* ------------------------------------------------------------------ */
 /* Animasi (lihat components/landing/motion). Tanpa layout shift: hanya   */
-/* transform & opacity (sorotan angka = opacity pada ::before).           */
+/* transform & opacity (bingkai pilihan = opacity pada ::before).        */
 /* Semua state tersembunyi dipasang oleh JS, jadi tanpa JS konten tetap   */
 /* tampil; dengan prefers-reduced-motion tidak ada aturan yang berlaku.   */
 /* ------------------------------------------------------------------ */
 
-:root {
-  --demo-highlight: #bfe3dc; /* sorotan teal muda di demo hero */
-}
-
-/* Indikator "mengetik…" (dekoratif) tidak terlihat kecuali sedang diputar. */
-[data-typing] {
+/* Hero: tanpa demo (server/JS mati/reduced motion) pil status menampilkan
+   keadaan akhir "Disetujui"; pil "Menunggu" hanya muncul saat demo berjalan. */
+[data-req-pill="wait"] {
   opacity: 0;
 }
 
@@ -122,85 +119,77 @@ body {
     transition-delay: var(--reveal-delay, 0ms);
   }
 
-  /* ---------- Demo hero: sorotan angka yang sedang berubah ---------- */
-  [data-hl] {
-    position: relative;
-    isolation: isolate;
-    transition: opacity 150ms ease-out;
+  /* ---------- Hero: cari warung → ajukan → disetujui (MatchDemo) ---------- */
+  /* Kartu warung muncul satu per satu (jeda 250 ms). */
+  [data-m-list="off"] [data-shop-card] {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 250ms ease-in,
+      transform 250ms ease-in;
   }
-  [data-hl]::before {
+  [data-m-list="on"] [data-shop-card] {
+    transition:
+      opacity 400ms ease-out,
+      transform 400ms ease-out;
+    transition-delay: calc(var(--i) * 250ms);
+  }
+  /* Warung yang dipilih: bingkai teal (opacity pada ::before). */
+  [data-match] [data-pick]::before {
     content: "";
     position: absolute;
-    inset: 0 -3px;
-    z-index: -1;
-    border-radius: 4px;
-    background: var(--demo-highlight);
+    inset: -3px;
+    border: 2px solid var(--primary);
+    border-radius: 10px;
     opacity: 0;
-    transition: opacity 600ms ease-out;
+    transition: opacity 300ms ease-out;
+    pointer-events: none;
   }
-  /* Sel angka di stepper: sorotan memenuhi sel. */
-  [data-hl][data-hl-fill]::before {
-    inset: 0;
-    border-radius: 0;
-  }
-  [data-hl="on"]::before {
+  [data-m-select="on"] [data-pick]::before {
     opacity: 1;
-    transition: none;
   }
-  /* Reset halus antar siklus */
-  [data-dim] {
-    opacity: 0.25;
+  /* Tombol tampak diketuk. */
+  [data-m-select="on"] [data-ajukan] {
+    animation: btn-tap 240ms ease-out 350ms;
   }
-
-  /* Tombol − / + tampak diketuk (a/b bergantian agar animasi diputar ulang) */
-  [data-press]::before {
-    content: "";
-    position: absolute;
-    inset: 2px;
-    border-radius: 4px;
-    background: var(--demo-highlight);
+  [data-m-accept="on"] [data-req-accept] {
+    animation: btn-tap 240ms ease-out;
+  }
+  @keyframes btn-tap {
+    40% {
+      transform: scale(0.88);
+    }
+  }
+  /* Kartu permintaan masuk ke HP warung. */
+  [data-m-req="off"] [data-req-card] {
+    opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 250ms ease-in,
+      transform 250ms ease-in;
+  }
+  [data-m-req="on"] [data-req-card] {
+    transition:
+      opacity 400ms ease-out,
+      transform 400ms ease-out;
+  }
+  /* Status Menunggu → Disetujui (crossfade, lebar pil tetap). */
+  [data-req-pill] {
+    transition: opacity 200ms ease-out;
+  }
+  [data-m-stamp="off"] [data-req-pill="wait"] {
+    opacity: 1;
+  }
+  [data-m-stamp="off"] [data-req-pill="done"] {
     opacity: 0;
   }
-  [data-press="a"] {
-    animation: tap-a 180ms ease-out;
-  }
-  [data-press="b"] {
-    animation: tap-b 180ms ease-out;
-  }
-  [data-press="a"]::before {
-    animation: tap-bg-a 180ms ease-out;
-  }
-  [data-press="b"]::before {
-    animation: tap-bg-b 180ms ease-out;
-  }
-  @keyframes tap-a {
-    40% {
-      transform: scale(0.82);
-    }
-  }
-  @keyframes tap-b {
-    40% {
-      transform: scale(0.82);
-    }
-  }
-  @keyframes tap-bg-a {
-    30% {
-      opacity: 1;
-    }
-  }
-  @keyframes tap-bg-b {
-    30% {
-      opacity: 1;
-    }
-  }
-
-  /* ---------- Cap nota: scale 1.6 → 1, rotasi -12° → -4°, 350 ms ---------- */
-  /* Elemen sudah memiliki rotate: -4deg; transform menambah -8deg di awal. */
-  [data-stamp="wait"] {
+  /* Cap DISETUJUI: scale 1.6 → 1, rotasi -12° → -4°, 350 ms.
+     Elemen sudah memiliki rotate: -4deg; transform menambah -8deg di awal. */
+  [data-m-stamp="off"] [data-req-stamp] {
     opacity: 0;
     transition: opacity 200ms ease-out;
   }
-  [data-stamp="in"] {
+  [data-m-stamp="on"] [data-req-stamp] {
     animation: stamp-in 350ms cubic-bezier(0.5, 0, 0.75, 0) both;
   }
   @keyframes stamp-in {
@@ -219,7 +208,7 @@ body {
   }
 
   /* ---------- Cara kerja ---------- */
-  /* Garis 900 ms → kartu 1, 2, 3 (jeda 200 ms) → "mengetik…" 1 s → gelembung */
+  /* Garis 900 ms → kartu 1–4 (jeda 200 ms). Diputar ulang saat tab berganti. */
   [data-steps]::before {
     transform-origin: left center;
   }
@@ -249,52 +238,6 @@ body {
       transform 500ms ease-out;
     transition-delay: calc(900ms + var(--i) * 200ms);
   }
-  /* Kartu 3 mulai 1300 ms → "mengetik…" 1300–2300 ms → gelembung 2300 ms */
-  [data-steps="hidden"] [data-bubble] {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  [data-steps="play"] [data-bubble] {
-    transition:
-      opacity 300ms ease-out,
-      transform 300ms ease-out;
-    transition-delay: 2300ms;
-  }
-  [data-steps="play"] [data-typing] {
-    animation: typing-show 1000ms linear 1300ms both;
-  }
-  [data-steps="play"] [data-typing] > span {
-    animation: typing-dot 500ms ease-in-out 1400ms 2;
-  }
-  [data-steps="play"] [data-typing] > span:nth-child(2) {
-    animation-delay: 1500ms;
-  }
-  [data-steps="play"] [data-typing] > span:nth-child(3) {
-    animation-delay: 1600ms;
-  }
-  @keyframes typing-show {
-    0% {
-      opacity: 0;
-    }
-    10%,
-    90% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-  @keyframes typing-dot {
-    0%,
-    100% {
-      transform: translateY(0);
-      opacity: 0.4;
-    }
-    50% {
-      transform: translateY(-3px);
-      opacity: 1;
-    }
-  }
 
   /* ---------- FAQ ---------- */
   details[open] > [data-faq-answer] {
@@ -323,11 +266,15 @@ body {
 @media print {
   [data-reveal],
   [data-step-card],
-  [data-bubble],
-  [data-stamp],
-  [data-dim] {
+  [data-shop-card],
+  [data-req-card],
+  [data-req-stamp],
+  [data-req-pill="done"] {
     opacity: 1 !important;
     transform: none !important;
+  }
+  [data-req-pill="wait"] {
+    opacity: 0 !important;
   }
   [data-steps]::before,
   [data-step-line] {

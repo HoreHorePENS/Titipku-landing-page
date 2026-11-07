@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AudienceStrip } from "@/components/landing/AudienceStrip";
 import { ClosingCta } from "@/components/landing/ClosingCta";
+import { META } from "@/components/landing/content";
 import { FaqSection } from "@/components/landing/FaqSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { Hero } from "@/components/landing/Hero";
@@ -12,9 +13,7 @@ import { SiteFooter } from "@/components/landing/SiteFooter";
 import { SiteHeader } from "@/components/landing/SiteHeader";
 import { TeamSection } from "@/components/landing/TeamSection";
 
-const title = "Titipku — Titip jual rapi, uang tidak lagi nyangkut";
-const description =
-  "Aplikasi untuk UMKM yang titip jual di warung: catat titipan di puluhan warung, tagihan dihitung otomatis, nota langsung terkirim ke WhatsApp.";
+const { title, description } = META;
 
 export const metadata: Metadata = {
   title: { absolute: title },

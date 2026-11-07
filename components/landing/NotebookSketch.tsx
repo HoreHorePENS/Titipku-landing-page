@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 
 /**
  * Ilustrasi halaman buku tulis (HTML/CSS, tanpa gambar) untuk panel
- * "Sebelum". Catatan memakai data yang sama dengan mockup HP di sebelahnya.
+ * "Sebelum": catatan keliling mencari tempat titip, lalu hitungan titipan.
  * Teksnya tetap teks HTML sehingga bisa dibaca pembaca layar.
  *
  * Kertas bergaris: jarak garis = --rule (22 px di mobile, 28 px di desktop).
@@ -31,10 +31,23 @@ type Note = {
   shift: number;
   /** Beri satu baris kosong sebelum catatan ini (desktop). */
   gapBefore?: boolean;
+  /** Sembunyikan di mobile (halaman lebih pendek). */
+  desktopOnly?: boolean;
 };
 
 const NOTES: Note[] = [
-  { text: "Senin 20/10 — Bu Sri (Rungkut)", tilt: -0.8, shift: 0 },
+  { text: "Tanya Bu Sri — penuh", tilt: -0.8, shift: 0 },
+  { text: "Kantin SMP 3 — tanya kepsek dulu", tilt: 0.6, shift: 5 },
+  {
+    text: (
+      <>
+        ongkos bensin <Circled>3x</Circled> bolak-balik
+      </>
+    ),
+    tilt: -0.5,
+    shift: 2,
+  },
+  { text: "Senin 20/10 — Bu Sri (Rungkut)", tilt: -0.8, shift: 0, gapBefore: true },
   { text: "Ori titip 25 → sisa 6? retur 2", tilt: 0.5, shift: 6 },
   {
     text: (
@@ -63,8 +76,7 @@ const NOTES: Note[] = [
     tilt: -0.6,
     shift: 2,
   },
-  { text: "Kantin SMP 3 — blm bayar!! (2 mgg)", tilt: 0.7, shift: 0, gapBefore: true },
-  { text: "Pak Darto ... keripik tempe basi 5 → tarik", tilt: -0.9, shift: 5 },
+  { text: "Pak Darto ... keripik tempe basi 5 → tarik", tilt: -0.9, shift: 5, desktopOnly: true },
 ];
 
 export function NotebookSketch({ caption }: { caption: string }) {
@@ -92,7 +104,7 @@ export function NotebookSketch({ caption }: { caption: string }) {
                 transform: `translate(${note.shift}px, 3px) rotate(${note.tilt}deg)`,
               } as CSSProperties
             }
-            className={`origin-left ${note.gapBefore ? "md:mt-[var(--rule)]" : ""}`}
+            className={`origin-left ${note.gapBefore ? "md:mt-[var(--rule)]" : ""} ${note.desktopOnly ? "max-md:hidden" : ""}`}
           >
             {note.text}
           </li>
