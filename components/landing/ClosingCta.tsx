@@ -9,11 +9,12 @@ export function ClosingCta() {
       >
         <h2
           id="cta-title"
+          data-reveal=""
           className="text-2xl leading-[30px] font-extrabold md:text-[32px] md:leading-10 md:tracking-[-0.02em]"
         >
           Tutup buku tulisnya minggu ini.
         </h2>
-        <div className="flex gap-3">
+        <div data-reveal="" className="flex gap-3">
           <ButtonLink href={LINKS.daftar} className="max-md:w-full">
             Daftar Gratis
           </ButtonLink>

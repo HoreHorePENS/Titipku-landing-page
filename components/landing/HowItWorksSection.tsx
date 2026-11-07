@@ -1,12 +1,12 @@
-import type { ComponentType } from "react";
-import { BillStepCard, CountStepCard, NotaStepCard } from "./StepCards";
+import type { ComponentType, CSSProperties } from "react";
+import { BillStepCard, CountStepCard, NotaStepCard, type StepCardProps } from "./StepCards";
 import { container, SectionTitle } from "./ui";
 
 const STEPS: {
   title: string;
   desc: string;
   mobile: string;
-  Card: ComponentType;
+  Card: ComponentType<StepCardProps>;
 }[] = [
   {
     title: "Hitung sisa di rak",
@@ -50,7 +50,7 @@ export function HowItWorksSection() {
           sehingga teks dan kartu sejajar dan tinggi kartu sama.
           Garis putus-putus penghubung (desktop) dibuat dengan ::before.
         */}
-        <ol className="relative flex flex-col lg:grid lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-x-12 lg:before:absolute lg:before:top-[27px] lg:before:right-[33%] lg:before:left-7 lg:before:border-t-[1.5px] lg:before:border-dashed lg:before:border-primary lg:before:content-['']">
+        <ol data-steps="" className="relative flex flex-col lg:grid lg:grid-cols-3 lg:grid-rows-[auto_auto_1fr] lg:gap-x-12 lg:before:absolute lg:before:top-[27px] lg:before:right-[33%] lg:before:left-7 lg:before:border-t-[1.5px] lg:before:border-dashed lg:before:border-primary lg:before:content-['']">
           {STEPS.map((step, i) => {
             const last = i === STEPS.length - 1;
             return (
@@ -68,6 +68,8 @@ export function HowItWorksSection() {
                   {!last && (
                     <span
                       aria-hidden="true"
+                      data-step-line=""
+                      style={{ "--i": i } as CSSProperties}
                       className="flex-1 border-l-[1.5px] border-dashed border-primary lg:hidden"
                     />
                   )}
@@ -82,7 +84,7 @@ export function HowItWorksSection() {
                     </p>
                     <p className="text-sm text-ink-muted md:hidden">{step.mobile}</p>
                   </div>
-                  <step.Card />
+                  <step.Card i={i} />
                 </div>
               </li>
             );

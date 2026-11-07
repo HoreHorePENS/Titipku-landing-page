@@ -32,11 +32,11 @@ export function FaqSection() {
   return (
     <section id="faq" aria-labelledby="faq-title" className="border-t border-line bg-surface">
       <div className={`${container} flex flex-col gap-6 py-12 md:gap-10 md:py-20`}>
-        <SectionTitle id="faq-title">Pertanyaan umum</SectionTitle>
+        <SectionTitle id="faq-title" reveal>Pertanyaan umum</SectionTitle>
 
-        <div className="max-w-[860px] border-b border-line">
+        <div data-reveal="" className="max-w-[860px] border-b border-line">
           {FAQS.map((item) => (
-            <details key={item.q} className="group border-t border-line">
+            <details key={item.q} data-faq="" className="group border-t border-line">
               <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 text-base font-bold hover:text-primary-hover md:text-lg [&::-webkit-details-marker]:hidden">
                 {item.q}
                 <span
@@ -47,7 +47,7 @@ export function FaqSection() {
                   <span className="hidden group-open:inline">−</span>
                 </span>
               </summary>
-              <p className="max-w-[680px] pb-5 text-[15px] leading-[23px] text-ink-muted md:text-base md:leading-[25px]">
+              <p data-faq-answer="" className="max-w-[680px] pb-5 text-[15px] leading-[23px] text-ink-muted md:text-base md:leading-[25px]">
                 {item.a}
               </p>
             </details>

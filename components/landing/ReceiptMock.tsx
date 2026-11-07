@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { DemoStamp } from "./motion/VisitDemo";
 
 /**
  * Potongan nota kertas statis bercap status pembayaran.
@@ -33,6 +34,9 @@ type Props = {
   status?: PaymentStatus;
 };
 
+/* Cap memakai <DemoStamp>: di dalam <VisitDemo> (hero) cap distempel setelah
+   demo hitung selesai; di tempat lain tampil statis. */
+
 export function ReceiptMock({ variant = "full", status = "BELUM LUNAS" }: Props) {
   const compact = variant === "compact";
   const label = `Nota ${RECEIPT.number} dari ${RECEIPT.seller}, total ${RECEIPT.total}, berstatus ${status.toLowerCase()}.`;
@@ -55,11 +59,11 @@ export function ReceiptMock({ variant = "full", status = "BELUM LUNAS" }: Props)
                 {RECEIPT.total}
               </span>
             </div>
-            <span
+            <DemoStamp
               className={`-rotate-4 self-start rounded border-[1.5px] px-[7px] py-[3px] text-[9px] font-extrabold tracking-[0.1em] ${STATUS_CLASS[status]}`}
             >
               {status}
-            </span>
+            </DemoStamp>
           </div>
         ) : (
           <div className="flex flex-col gap-2.5 bg-surface px-5 py-[18px]">
@@ -89,11 +93,11 @@ export function ReceiptMock({ variant = "full", status = "BELUM LUNAS" }: Props)
                 {RECEIPT.total}
               </span>
             </div>
-            <span
+            <DemoStamp
               className={`mt-1 -rotate-4 self-start rounded border-[1.5px] px-2.5 py-1 text-xs font-extrabold tracking-[0.12em] ${STATUS_CLASS[status]}`}
             >
               {status}
-            </span>
+            </DemoStamp>
           </div>
         )}
         <div className="receipt-edge-bottom" style={edge} />

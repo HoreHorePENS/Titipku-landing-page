@@ -17,7 +17,7 @@ export function AudienceStrip() {
       <div
         className={`${container} flex flex-col gap-4 py-8 md:py-10 lg:flex-row lg:items-start lg:justify-between lg:gap-12`}
       >
-        <div className="flex max-w-[560px] flex-col gap-2">
+        <div data-reveal="" className="flex max-w-[560px] flex-col gap-2">
           <h2 id="untuk-siapa-title" className="text-lg leading-6 font-extrabold md:text-xl md:leading-7">
             Dibuat untuk produsen yang menitip di banyak tempat
           </h2>
@@ -26,7 +26,7 @@ export function AudienceStrip() {
             koperasi, atau toko oleh-oleh.
           </p>
         </div>
-        <ul className="flex flex-wrap gap-2 lg:max-w-[600px] lg:pt-1">
+        <ul data-reveal="" className="flex flex-wrap gap-2 lg:max-w-[600px] lg:pt-1">
           {SEGMENTS.map((segment) => (
             <li
               key={segment}

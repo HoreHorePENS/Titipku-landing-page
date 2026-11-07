@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { PRODUCTS, ProductCard } from "./PhoneVisitMock";
 
 /**
@@ -6,12 +6,21 @@ import { PRODUCTS, ProductCard } from "./PhoneVisitMock";
  * Isi kartu dekoratif untuk pembaca layar; angka pentingnya diringkas di
  * `aria-label`. Tinggi ketiga kartu disamakan oleh grid di HowItWorksSection.
  */
-function StepCard({ label, children }: { label: string; children: ReactNode }) {
+/** `i` = urutan langkah (0-2), dipakai untuk jeda animasi muncul. */
+export type StepCardProps = { i: number };
+
+function StepCard({ label, i, children }: { label: string; i: number; children: ReactNode }) {
   return (
-    <div role="img" aria-label={label} className="h-full max-w-[440px] min-w-0 lg:max-w-none">
+    <div
+      role="img"
+      aria-label={label}
+      data-step-card=""
+      style={{ "--i": i } as CSSProperties}
+      className="h-full max-w-[440px] min-w-0 lg:max-w-none"
+    >
       <div
         aria-hidden="true"
-        className="flex h-full flex-col justify-center rounded-lg border border-line bg-paper p-3 select-none md:p-4"
+        className="relative flex h-full flex-col justify-center rounded-lg border border-line bg-paper p-3 select-none md:p-4"
       >
         {children}
       </div>
@@ -24,18 +33,18 @@ function Mono({ children }: { children: ReactNode }) {
 }
 
 /** Langkah 1: potongan kartu produk dari layar Catat Kunjungan. */
-export function CountStepCard() {
+export function CountStepCard({ i }: StepCardProps) {
   return (
-    <StepCard label="Contoh: Keripik Pisang Original, sisa di rak 6, retur 2, terjual 17 senilai Rp51.000.">
+    <StepCard i={i} label="Contoh: Keripik Pisang Original, sisa di rak 6, retur 2, terjual 17 senilai Rp51.000.">
       <ProductCard p={PRODUCTS[0]} compact />
     </StepCard>
   );
 }
 
 /** Langkah 2: blok bergaya kuitansi. */
-export function BillStepCard() {
+export function BillStepCard({ i }: StepCardProps) {
   return (
-    <StepCard label="Contoh: tagihan kunjungan ini Rp143.000 ditambah sisa utang sebelumnya Rp40.000, total harus dibayar Rp183.000.">
+    <StepCard i={i} label="Contoh: tagihan kunjungan ini Rp143.000 ditambah sisa utang sebelumnya Rp40.000, total harus dibayar Rp183.000.">
       <div className="flex flex-col gap-2.5 rounded-md border border-line bg-surface p-3.5 text-[13px]">
         <div className="flex items-baseline justify-between gap-3">
           <span>Tagihan kunjungan ini</span>
@@ -56,10 +65,21 @@ export function BillStepCard() {
 }
 
 /** Langkah 3: gelembung chat bergaya WhatsApp (tanpa logo). */
-export function NotaStepCard() {
+export function NotaStepCard({ i }: StepCardProps) {
   return (
-    <StepCard label="Contoh pesan WhatsApp ke Bu Sri berisi nota titipan 27 Okt 2026 dengan tagihan Rp143.000 dan tautan nota, terkirim pukul 10.42.">
-      <div className="ml-auto flex max-w-[92%] flex-col gap-1.5 rounded-lg rounded-tr-sm bg-chat-bubble px-3 py-2.5 text-[13px] leading-[19px]">
+    <StepCard i={i} label="Contoh pesan WhatsApp ke Bu Sri berisi nota titipan 27 Okt 2026 dengan tagihan Rp143.000 dan tautan nota, terkirim pukul 10.42.">
+      {/* Indikator "mengetik…" (dekoratif; hanya terlihat saat animasi). */}
+      <span
+        data-typing=""
+        className="absolute top-1/2 right-3 flex -translate-y-1/2 gap-1 rounded-lg rounded-tr-sm bg-chat-bubble px-3 py-2.5 md:right-4"
+      >
+        <span className="size-1.5 rounded-full bg-ink-muted" />
+        <span className="size-1.5 rounded-full bg-ink-muted" />
+        <span className="size-1.5 rounded-full bg-ink-muted" />
+      </span>
+      <div
+        data-bubble=""
+        className="ml-auto flex max-w-[92%] flex-col gap-1.5 rounded-lg rounded-tr-sm bg-chat-bubble px-3 py-2.5 text-[13px] leading-[19px]">
         <p>
           Halo Bu Sri, berikut nota titipan Keripik Pisang Rina <Mono>27</Mono> Okt{" "}
           <Mono>2026</Mono>. Tagihan <Mono>Rp143.000</Mono>.

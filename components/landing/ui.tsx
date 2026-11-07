@@ -59,7 +59,7 @@ export function ButtonLink({
       // TODO(halaman): aktifkan lagi prefetch setelah /masuk dan /daftar dibuat;
       // sekarang prefetch ke halaman 404 memunculkan error di konsol.
       prefetch={false}
-      className={`inline-flex items-center justify-center rounded-md whitespace-nowrap transition-colors ${VARIANT[variant]} ${SIZE[size]} ${className}`}
+      className={`inline-flex items-center justify-center rounded-md whitespace-nowrap transition-[color,background-color,border-color,scale] duration-150 motion-safe:active:scale-[0.98] ${VARIANT[variant]} ${SIZE[size]} ${className}`}
     >
       {children}
     </Link>
@@ -70,15 +70,19 @@ export function ButtonLink({
 export function SectionTitle({
   id,
   className = "",
+  reveal = false,
   children,
 }: {
   id: string;
   className?: string;
+  /** Ikut animasi muncul saat terlihat (lihat MotionController). */
+  reveal?: boolean;
   children: ReactNode;
 }) {
   return (
     <h2
       id={id}
+      data-reveal={reveal ? "" : undefined}
       className={`text-[26px] leading-8 font-extrabold md:text-[40px] md:leading-[48px] md:tracking-[-0.02em] ${className}`}
     >
       {children}

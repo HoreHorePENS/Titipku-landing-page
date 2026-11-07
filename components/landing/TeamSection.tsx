@@ -28,7 +28,7 @@ export function TeamSection() {
   return (
     <section id="tim" aria-labelledby="tim-title" className="border-t border-line">
       <div className={`${container} flex flex-col gap-8 py-12 md:gap-12 md:py-20`}>
-        <div className="flex flex-col gap-2 md:gap-3">
+        <div data-reveal="" className="flex flex-col gap-2 md:gap-3">
           <SectionTitle id="tim-title">Tim di balik Titipku</SectionTitle>
           <p className="max-w-[640px] text-[15px] leading-[23px] text-ink-muted md:text-lg md:leading-7">
             Dibuat oleh Tim {TEAM_INFO.namaTim} dari {TEAM_INFO.institusi} untuk GTNIC 2026.
@@ -37,7 +37,9 @@ export function TeamSection() {
 
         <ul className="grid gap-10 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
           {MEMBERS.map((member) => (
-            <li key={member.nama} className="flex max-w-[320px] flex-col gap-3">
+            <li key={member.nama} data-reveal="" className="max-w-[320px]">
+              {/* Kartu sedikit terangkat saat hover (perangkat dengan hover, ≥1024 px). */}
+              <div className="flex flex-col gap-3 transition-transform duration-200 ease-out motion-safe:lg:hover:-translate-y-1">
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-primary">
                 {member.photo ? (
                   <Image
@@ -61,6 +63,7 @@ export function TeamSection() {
               <div className="flex flex-col gap-0.5">
                 <h3 className="text-[17px] leading-6 font-bold">{member.nama}</h3>
                 <p className="text-sm font-semibold text-primary">{member.peran}</p>
+              </div>
               </div>
             </li>
           ))}

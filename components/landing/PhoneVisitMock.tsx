@@ -8,6 +8,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import Image from "next/image";
+import type { ReactNode } from "react";
+import { DemoValue } from "./motion/VisitDemo";
 
 /**
  * Foto produk dari /public. Foto hanya dipakai jika file-nya ada saat build;
@@ -55,7 +57,7 @@ export const PRODUCTS: Product[] = [
 const DEFAULT_LABEL =
   "Layar Catat Kunjungan Titipku untuk Warung Bu Sri, Rungkut: Keripik Pisang Original sisa 6, retur 2, terjual 17 senilai Rp51.000; Keripik Pisang Balado terjual 16 senilai Rp56.000; tagihan Rp143.000.";
 
-function Stepper({ value }: { value: number }) {
+function Stepper({ value }: { value: ReactNode }) {
   return (
     <span className="flex items-center rounded-md border border-line-strong">
       <span className="flex size-[30px] items-center justify-center text-base text-primary">
@@ -71,7 +73,7 @@ function Stepper({ value }: { value: number }) {
   );
 }
 
-function Row({ label, value }: { label: string; value: number }) {
+function Row({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="flex items-center justify-between">
       <span className="text-[11px] font-semibold">{label}</span>
@@ -83,8 +85,19 @@ function Row({ label, value }: { label: string; value: number }) {
 /**
  * Kartu produk layar Catat Kunjungan. `compact` menghilangkan baris
  * "Titip baru" dan saran (dipakai di kartu langkah "Cara kerja").
+ * `demo` menghubungkan angka kartu ini ke demo hitung di hero (<VisitDemo>).
  */
-export function ProductCard({ p, compact = false }: { p: Product; compact?: boolean }) {
+export function ProductCard({
+  p,
+  compact = false,
+  demo = false,
+}: {
+  p: Product;
+  compact?: boolean;
+  demo?: boolean;
+}) {
+  const v = (field: "remaining" | "returned" | "sold" | "amount", fallback: ReactNode) =>
+    demo ? <DemoValue field={field} /> : fallback;
   return (
     <div className="flex flex-col gap-2 rounded-lg border border-line bg-surface p-2.5">
       <div className="flex items-center gap-2">
@@ -107,13 +120,13 @@ export function ProductCard({ p, compact = false }: { p: Product; compact?: bool
           </span>
         </div>
       </div>
-      <Row label="Sisa di rak" value={p.remaining} />
-      {p.returned !== undefined && <Row label="Retur/basi" value={p.returned} />}
+      <Row label="Sisa di rak" value={v("remaining", p.remaining)} />
+      {p.returned !== undefined && <Row label="Retur/basi" value={v("returned", p.returned)} />}
       <div className="flex justify-between rounded-md bg-primary-soft px-2 py-1.5 text-[11px] font-bold text-primary">
         <span>
-          Terjual <span className="font-mono tabular-nums">{p.sold}</span>
+          Terjual <span className="font-mono tabular-nums">{v("sold", p.sold)}</span>
         </span>
-        <span className="font-mono tabular-nums">{p.amount}</span>
+        <span className="font-mono tabular-nums">{v("amount", p.amount)}</span>
       </div>
       {!compact && p.newStock !== undefined && <Row label="Titip baru" value={p.newStock} />}
       {!compact && p.suggestion && (
@@ -125,7 +138,17 @@ export function ProductCard({ p, compact = false }: { p: Product; compact?: bool
   );
 }
 
-export function PhoneVisitMock({ label = DEFAULT_LABEL }: { label?: string }) {
+/**
+ * `demo`: angka Original & tagihan ikut demo hitung (hanya di hero, di dalam
+ * <VisitDemo>). Tanpa demo, nilai akhir ditampilkan statis.
+ */
+export function PhoneVisitMock({
+  label = DEFAULT_LABEL,
+  demo = false,
+}: {
+  label?: string;
+  demo?: boolean;
+}) {
   return (
     <div role="img" aria-label={label} className="h-[636px] w-[316px]">
       <div
@@ -141,15 +164,15 @@ export function PhoneVisitMock({ label = DEFAULT_LABEL }: { label?: string }) {
           <span className="text-[11px] text-ink-subtle">Kunjungan terakhir 20 Okt</span>
         </div>
         <div className="flex flex-1 flex-col gap-2.5 overflow-hidden p-2.5">
-          {PRODUCTS.map((p) => (
-            <ProductCard key={p.name} p={p} />
+          {PRODUCTS.map((p, i) => (
+            <ProductCard key={p.name} p={p} demo={demo && i === 0} />
           ))}
         </div>
         <div className="flex items-center justify-between border-t border-line bg-surface px-3 pt-2.5 pb-3.5">
           <div className="flex flex-col">
             <span className="text-[10px] text-ink-subtle">Tagihan</span>
             <span className="font-mono text-base font-semibold tabular-nums">
-              Rp143.000
+              {demo ? <DemoValue field="total" /> : "Rp143.000"}
             </span>
           </div>
           <span className="flex h-[38px] items-center rounded-md bg-primary px-5 text-[13px] font-bold text-white">

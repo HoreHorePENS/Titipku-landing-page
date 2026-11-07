@@ -1,4 +1,5 @@
 import { LINKS } from "./content";
+import { VisitDemo } from "./motion/VisitDemo";
 import { PhoneVisitMock } from "./PhoneVisitMock";
 import { ReceiptMock } from "./ReceiptMock";
 import { ButtonLink, container, Copy } from "./ui";
@@ -6,6 +7,7 @@ import { ButtonLink, container, Copy } from "./ui";
 export function Hero() {
   return (
     <section aria-labelledby="hero-title">
+      <VisitDemo>
       <div
         className={`${container} grid gap-12 pt-9 pb-6 md:py-16 lg:grid-cols-[minmax(0,1fr)_480px] lg:items-center lg:pt-20 lg:pb-[72px] xl:grid-cols-[minmax(0,1fr)_620px]`}
       >
@@ -41,7 +43,7 @@ export function Hero() {
         <div className="relative mx-auto h-[660px] w-[620px] max-md:hidden lg:mx-0 lg:h-[511px] lg:w-[480px] xl:h-[660px] xl:w-[620px]">
           <div className="absolute top-0 left-0 h-[660px] w-[620px] origin-top-left lg:scale-[0.774] xl:scale-100">
             <div className="absolute top-0 left-5">
-              <PhoneVisitMock />
+              <PhoneVisitMock demo />
             </div>
             <div className="absolute top-[150px] right-0 rotate-2">
               <ReceiptMock />
@@ -53,12 +55,13 @@ export function Hero() {
       {/* Visual mobile: HP diskalakan 0,78 + nota ringkas. */}
       <div className="relative mx-auto h-[500px] max-w-[480px] overflow-hidden md:hidden">
         <div className="absolute top-0 left-4 origin-top-left scale-[0.78]">
-          <PhoneVisitMock />
+          <PhoneVisitMock demo />
         </div>
         <div className="absolute top-[120px] right-3.5 rotate-3">
           <ReceiptMock variant="compact" />
         </div>
       </div>
+      </VisitDemo>
     </section>
   );
 }

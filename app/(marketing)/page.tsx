@@ -4,6 +4,7 @@ import { ClosingCta } from "@/components/landing/ClosingCta";
 import { FaqSection } from "@/components/landing/FaqSection";
 import { FeaturesSection } from "@/components/landing/FeaturesSection";
 import { Hero } from "@/components/landing/Hero";
+import { MotionController } from "@/components/landing/motion/MotionController";
 import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
 import { OwnerAndShopSection } from "@/components/landing/OwnerAndShopSection";
 import { ProblemSection } from "@/components/landing/ProblemSection";
@@ -50,6 +51,7 @@ export default function LandingPage() {
         <ClosingCta />
       </main>
       <SiteFooter />
+      <MotionController />
     </>
   );
 }

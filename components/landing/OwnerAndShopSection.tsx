@@ -10,10 +10,10 @@ export function OwnerAndShopSection() {
       className="border-t border-line"
     >
       <div className={`${container} flex flex-col gap-8 py-12 md:gap-12 md:py-20`}>
-        <SectionTitle id="pemilik-warung-title">Untuk pemilik, untuk warung</SectionTitle>
+        <SectionTitle id="pemilik-warung-title" reveal>Untuk pemilik, untuk warung</SectionTitle>
 
         <div className="grid gap-12 md:grid-cols-2 md:gap-10 xl:gap-20">
-          <div className="flex flex-col gap-5">
+          <div data-reveal="" className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
               <h3 className="text-xl leading-7 font-bold md:text-2xl md:leading-8">
                 Pemilik melihat semuanya dalam satu layar
@@ -26,7 +26,7 @@ export function OwnerAndShopSection() {
             <DashboardMock />
           </div>
 
-          <div className="flex flex-col gap-5">
+          <div data-reveal="" className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
               <h3 className="text-xl leading-7 font-bold md:text-2xl md:leading-8">
                 Warung cukup terima link

@@ -24,14 +24,14 @@ export function ProblemSection() {
   return (
     <section id="masalah" aria-labelledby="masalah-title" className="border-t border-line">
       <div className={`${container} flex flex-col gap-5 py-12 md:gap-10 md:py-20`}>
-        <SectionTitle id="masalah-title" className="max-w-[720px]">
+        <SectionTitle id="masalah-title" className="max-w-[720px]" reveal>
           <Copy
             mobile="Lima belas warung, buku penuh coretan."
             desktop="Satu warung, satu halaman buku. Lima belas warung, buku penuh coretan."
           />
         </SectionTitle>
 
-        <div className="grid grid-cols-2 gap-2 md:gap-0 md:overflow-hidden md:rounded-lg md:border md:border-line md:bg-surface">
+        <div data-reveal="" className="grid grid-cols-2 gap-2 md:gap-0 md:overflow-hidden md:rounded-lg md:border md:border-line md:bg-surface">
           <div className="flex flex-col gap-1.5 md:gap-3.5 md:border-r md:border-line md:p-7">
             <h3 className="text-[11px] font-bold tracking-[0.05em] text-ink-muted uppercase md:text-ink-subtle md:text-[13px]">
               <Copy mobile="Sebelum" desktop="Sebelum · buku tulis" />
@@ -54,6 +54,7 @@ export function ProblemSection() {
           {POINTS.map((point) => (
             <li
               key={point.title}
+              data-reveal=""
               className="flex flex-col gap-1 border-t-2 border-ink pt-2.5 md:gap-1.5 md:pt-3.5"
             >
               <h3 className="text-base font-bold md:text-[17px]">{point.title}</h3>

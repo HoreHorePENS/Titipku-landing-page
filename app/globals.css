@@ -92,3 +92,160 @@ body {
   background: conic-gradient(from -45deg at 50% 0, #ffffff 90deg, transparent 0) 0 0 /
     var(--edge-w, 12px) var(--edge-h, 7px) repeat-x;
 }
+
+/* ------------------------------------------------------------------ */
+/* Animasi (lihat components/landing/motion). Hanya transform & opacity. */
+/* Semua state tersembunyi dipasang oleh JS, jadi tanpa JS konten tetap  */
+/* tampil; dengan prefers-reduced-motion tidak ada aturan yang berlaku.  */
+/* ------------------------------------------------------------------ */
+
+/* Indikator "mengetik…" (dekoratif) tidak terlihat kecuali sedang diputar. */
+[data-typing] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Muncul saat terlihat */
+  [data-reveal="hidden"] {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  [data-reveal="shown"] {
+    transition:
+      opacity 300ms ease-out,
+      transform 300ms ease-out;
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  /* Cap nota distempel setelah demo hitung di hero */
+  [data-stamp="wait"] {
+    opacity: 0;
+  }
+  [data-stamp="in"] {
+    animation: stamp-in 250ms cubic-bezier(0.55, 0, 0.75, 0.2) both;
+  }
+  @keyframes stamp-in {
+    from {
+      opacity: 0;
+      transform: scale(1.4) rotate(-8deg);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Cara kerja: garis tergambar, lalu kartu 1-2-3, lalu chat */
+  [data-steps]::before {
+    transform-origin: left center;
+  }
+  [data-steps="hidden"]::before {
+    transform: scaleX(0);
+  }
+  [data-steps="play"]::before {
+    transition: transform 600ms ease-out;
+  }
+  [data-step-line] {
+    transform-origin: top center;
+  }
+  [data-steps="hidden"] [data-step-line] {
+    transform: scaleY(0);
+  }
+  [data-steps="play"] [data-step-line] {
+    transition: transform 400ms ease-out;
+    transition-delay: calc(var(--i) * 250ms);
+  }
+  [data-steps="hidden"] [data-step-card] {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  [data-steps="play"] [data-step-card] {
+    transition:
+      opacity 300ms ease-out,
+      transform 300ms ease-out;
+    transition-delay: calc(600ms + var(--i) * 120ms);
+  }
+  /* Langkah 3: kartu muncul ±840 ms → "mengetik…" 600 ms → gelembung */
+  [data-steps="hidden"] [data-bubble] {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  [data-steps="play"] [data-bubble] {
+    transition:
+      opacity 250ms ease-out,
+      transform 250ms ease-out;
+    transition-delay: 1440ms;
+  }
+  [data-steps="play"] [data-typing] {
+    animation: typing-show 600ms linear 840ms both;
+  }
+  [data-steps="play"] [data-typing] > span {
+    animation: typing-dot 600ms ease-in-out 840ms 1;
+  }
+  [data-steps="play"] [data-typing] > span:nth-child(2) {
+    animation-delay: 940ms;
+  }
+  [data-steps="play"] [data-typing] > span:nth-child(3) {
+    animation-delay: 1040ms;
+  }
+  @keyframes typing-show {
+    0% {
+      opacity: 0;
+    }
+    10%,
+    85% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes typing-dot {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.4;
+    }
+    50% {
+      transform: translateY(-3px);
+      opacity: 1;
+    }
+  }
+
+  /* FAQ: jawaban memudar masuk saat dibuka, keluar saat ditutup */
+  details[open] > [data-faq-answer] {
+    animation: faq-in 200ms ease-out;
+  }
+  details[data-closing] > [data-faq-answer] {
+    opacity: 0;
+    transform: translateY(-4px);
+    transition:
+      opacity 150ms ease-in,
+      transform 150ms ease-in;
+  }
+  @keyframes faq-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* Saat dicetak/PDF, tampilkan semua elemen walau belum pernah di-scroll. */
+@media print {
+  [data-reveal],
+  [data-step-card],
+  [data-bubble],
+  [data-stamp] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  [data-steps]::before,
+  [data-step-line] {
+    transform: none !important;
+  }
+}

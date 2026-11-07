@@ -96,6 +96,7 @@ Panel "Sebelum" memakai ilustrasi halaman buku tulis yang dibuat dengan HTML/CSS
 - Mockup HP, nota, dan ringkasan pemilik diberi deskripsi teks untuk pembaca layar.
 - Fokus keyboard terlihat, target sentuh minimal 44 px, kontras teks memenuhi WCAG AA.
 - Scroll halus dimatikan untuk pengguna dengan `prefers-reduced-motion`.
+- Animasi tanpa library (CSS + IntersectionObserver, lihat `components/landing/motion/`): demo hitung di hero, cap nota, linimasa "Cara kerja", dan elemen yang muncul saat di-scroll. Hanya `transform`/`opacity` (CLS 0). HTML server selalu berisi keadaan akhir, jadi konten tetap tampil tanpa JavaScript; dengan `prefers-reduced-motion` semua animasi dilewati.
 - Responsif tanpa scroll horizontal di lebar 360–1440 px.
 - Skor Lighthouse (mobile, build produksi lokal): **Performance 95, Accessibility 100, Best Practices 100, SEO 100**.
 
