@@ -57,8 +57,8 @@ components/landing/
   DashboardMock.tsx     Mockup ringkasan untuk pemilik (komponen statis)
   ReceiptMock.tsx       Potongan nota bercap status pembayaran (komponen statis)
 public/
-  landing/produk/       Foto produk di mockup HP
-  landing/tim/          Foto anggota tim (potret 4:5)
+  landing/produk/       Foto produk di mockup HP (WebP, maks. 320×320 px)
+  landing/tim/          Foto anggota tim (WebP, maks. lebar 1200 px)
 ```
 
 ## Section halaman
@@ -71,7 +71,7 @@ public/
 6. **Untuk pemilik, untuk warung**: mockup ringkasan pemilik dan nota yang diterima warung.
 7. **Fitur**: 1 fitur besar (Catat Kunjungan) + 3 fitur kecil.
 8. **Pertanyaan umum**: accordion `<details>/<summary>` yang bisa dibuka dengan keyboard.
-9. **Tim di balik Titipku** (`#tim`): foto dan peran anggota Tim HoreHore. Data di `TEAM` / `TEAM_INFO` (`content.ts`), foto potret 4:5 di `public/landing/tim/`; jika foto belum ada, tampil inisial nama.
+9. **Tim di balik Titipku** (`#tim`): foto dan peran anggota Tim HoreHore. Data di `TEAM` / `TEAM_INFO` (`content.ts`), foto potret WebP (maks. lebar 1200 px, tanpa EXIF) di `public/landing/tim/`; jika foto belum ada, tampil inisial nama.
 10. **CTA penutup**: "Tutup buku tulisnya minggu ini."
 11. **Footer**
 

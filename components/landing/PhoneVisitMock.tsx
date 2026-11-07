@@ -15,7 +15,7 @@ import { STEPPER } from "./motion/stepperStyles";
 /**
  * Foto produk dari /public. Foto hanya dipakai jika file-nya ada saat build;
  * jika belum ada, tetap tampil kotak placeholder berarsir.
- * TODO(foto): tambahkan public/landing/produk/original.jpg dan balado.jpg.
+ * File: public/landing/produk/original.webp dan balado.webp (maks. 320×320 px).
  */
 function photoIfExists(src: string): string | undefined {
   return fs.existsSync(path.join(process.cwd(), "public", src)) ? src : undefined;
@@ -43,7 +43,7 @@ export const PRODUCTS: Product[] = [
     amount: "Rp51.000",
     newStock: 18,
     suggestion: "Saran: 18 (laku ±3/hari)",
-    photo: photoIfExists("/landing/produk/original.jpg"),
+    photo: photoIfExists("/landing/produk/original.webp"),
   },
   {
     name: "Keripik Pisang Balado 100 g",
@@ -51,7 +51,7 @@ export const PRODUCTS: Product[] = [
     remaining: 4,
     sold: 16,
     amount: "Rp56.000",
-    photo: photoIfExists("/landing/produk/balado.jpg"),
+    photo: photoIfExists("/landing/produk/balado.webp"),
   },
 ];
 
