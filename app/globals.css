@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/*
+ * Design token Titipku (sumber: "Titipku Landing.dc.html", section 3a).
+ * Dipakai sebagai utilitas Tailwind, mis. bg-paper, text-ink-muted, border-line.
+ */
+:root {
+  --paper: #faf7f0; /* latar halaman */
+  --canvas: #e6e1d6; /* kanvas luar */
+  --surface: #ffffff;
+  --line: #e7e1d4; /* border halus */
+  --line-strong: #d6cfc0; /* border tegas */
+  --line-dashed: #cfc6b4; /* garis putus-putus nota */
+  --ink: #1c1917; /* teks utama */
+  --ink-muted: #57534e; /* teks sekunder */
+  --ink-subtle: #78716c; /* teks tersier */
+  --primary: #0f766e;
+  --primary-hover: #0b5f58;
+  --primary-soft: #e3f0ee;
+  --status-lunas: #15803d;
+  --status-sebagian: #b45309;
+  --status-belum-lunas: #b91c1c;
+  --hatch-a: #efe8da;
+  --hatch-b: #f7f3ea;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-line-dashed: var(--line-dashed);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-status-lunas: var(--status-lunas);
+  --color-status-sebagian: var(--status-sebagian);
+  --color-status-belum-lunas: var(--status-belum-lunas);
+  --color-hatch-a: var(--hatch-a);
+  --color-hatch-b: var(--hatch-b);
+
+  --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Arsiran placeholder foto, sama seperti di desain. */
+@utility hatch {
+  background: repeating-linear-gradient(135deg, var(--hatch-a) 0 8px, var(--hatch-b) 8px 16px);
+}
+@utility hatch-sm {
+  background: repeating-linear-gradient(135deg, var(--hatch-a) 0 6px, var(--hatch-b) 6px 12px);
+}
+@utility hatch-xs {
+  background: repeating-linear-gradient(135deg, var(--hatch-a) 0 4px, var(--hatch-b) 4px 8px);
+}
+
+/* Tepi bergerigi kertas nota. --edge-w / --edge-h diatur per varian. */
+@utility receipt-edge-top {
+  height: var(--edge-h, 7px);
+  background: conic-gradient(from 135deg at 50% 100%, #ffffff 90deg, transparent 0) 0 0 /
+    var(--edge-w, 12px) var(--edge-h, 7px) repeat-x;
+}
+@utility receipt-edge-bottom {
+  height: var(--edge-h, 7px);
+  background: conic-gradient(from -45deg at 50% 0, #ffffff 90deg, transparent 0) 0 0 /
+    var(--edge-w, 12px) var(--edge-h, 7px) repeat-x;
+}
