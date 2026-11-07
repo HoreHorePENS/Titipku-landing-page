@@ -39,7 +39,7 @@ app/
   globals.css           Design token (warna, font) + utilitas Tailwind
   (marketing)/page.tsx  Landing page "/" beserta metadata & Open Graph
 components/landing/
-  content.ts            LINKS: semua tautan (masuk, daftar, demo, kontak)
+  content.ts            LINKS (semua tautan) dan data tim (TEAM, TEAM_INFO)
   ui.tsx                Container, tombol, judul section, copy mobile/desktop
   SiteHeader.tsx        Header + navigasi anchor
   Hero.tsx              Hero dengan mockup HP dan nota
@@ -50,13 +50,15 @@ components/landing/
   OwnerAndShopSection.tsx "Untuk pemilik, untuk warung"
   FeaturesSection.tsx   "Yang dipakai tiap minggu"
   FaqSection.tsx        "Pertanyaan umum"
+  TeamSection.tsx       "Tim di balik Titipku"
   ClosingCta.tsx        CTA penutup
   SiteFooter.tsx        Footer
   PhoneVisitMock.tsx    Mockup HP layar Catat Kunjungan (komponen statis)
   DashboardMock.tsx     Mockup ringkasan untuk pemilik (komponen statis)
   ReceiptMock.tsx       Potongan nota bercap status pembayaran (komponen statis)
 public/
-  favicon & aset statis
+  landing/produk/       Foto produk di mockup HP
+  landing/tim/          Foto anggota tim (potret 4:5)
 ```
 
 ## Section halaman
@@ -69,8 +71,9 @@ public/
 6. **Untuk pemilik, untuk warung**: mockup ringkasan pemilik dan nota yang diterima warung.
 7. **Fitur**: 1 fitur besar (Catat Kunjungan) + 3 fitur kecil.
 8. **Pertanyaan umum**: accordion `<details>/<summary>` yang bisa dibuka dengan keyboard.
-9. **CTA penutup**: "Tutup buku tulisnya minggu ini."
-10. **Footer**
+9. **Tim di balik Titipku** (`#tim`): foto dan peran anggota Tim HoreHore. Data di `TEAM` / `TEAM_INFO` (`content.ts`), foto potret 4:5 di `public/landing/tim/`; jika foto belum ada, tampil inisial nama.
+10. **CTA penutup**: "Tutup buku tulisnya minggu ini."
+11. **Footer**
 
 ### Mengubah tautan
 

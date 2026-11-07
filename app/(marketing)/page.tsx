@@ -9,6 +9,7 @@ import { OwnerAndShopSection } from "@/components/landing/OwnerAndShopSection";
 import { ProblemSection } from "@/components/landing/ProblemSection";
 import { SiteFooter } from "@/components/landing/SiteFooter";
 import { SiteHeader } from "@/components/landing/SiteHeader";
+import { TeamSection } from "@/components/landing/TeamSection";
 
 const title = "Titipku — Titip jual rapi, uang tidak lagi nyangkut";
 const description =
@@ -45,6 +46,7 @@ export default function LandingPage() {
         <OwnerAndShopSection />
         <FeaturesSection />
         <FaqSection />
+        <TeamSection />
         <ClosingCta />
       </main>
       <SiteFooter />
