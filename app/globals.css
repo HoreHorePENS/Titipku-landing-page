@@ -94,10 +94,15 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
-/* Animasi (lihat components/landing/motion). Hanya transform & opacity. */
-/* Semua state tersembunyi dipasang oleh JS, jadi tanpa JS konten tetap  */
-/* tampil; dengan prefers-reduced-motion tidak ada aturan yang berlaku.  */
+/* Animasi (lihat components/landing/motion). Tanpa layout shift: hanya   */
+/* transform & opacity (sorotan angka = opacity pada ::before).           */
+/* Semua state tersembunyi dipasang oleh JS, jadi tanpa JS konten tetap   */
+/* tampil; dengan prefers-reduced-motion tidak ada aturan yang berlaku.   */
 /* ------------------------------------------------------------------ */
+
+:root {
+  --demo-highlight: #bfe3dc; /* sorotan teal muda di demo hero */
+}
 
 /* Indikator "mengetik…" (dekoratif) tidak terlihat kecuali sedang diputar. */
 [data-typing] {
@@ -105,37 +110,116 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* Muncul saat terlihat */
+  /* ---------- Reveal saat scroll: 24px, 500 ms, jeda 100 ms ---------- */
   [data-reveal="hidden"] {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(24px);
   }
   [data-reveal="shown"] {
     transition:
-      opacity 300ms ease-out,
-      transform 300ms ease-out;
+      opacity 500ms ease-out,
+      transform 500ms ease-out;
     transition-delay: var(--reveal-delay, 0ms);
   }
 
-  /* Cap nota distempel setelah demo hitung di hero */
-  [data-stamp="wait"] {
+  /* ---------- Demo hero: sorotan angka yang sedang berubah ---------- */
+  [data-hl] {
+    position: relative;
+    isolation: isolate;
+    transition: opacity 150ms ease-out;
+  }
+  [data-hl]::before {
+    content: "";
+    position: absolute;
+    inset: 0 -3px;
+    z-index: -1;
+    border-radius: 4px;
+    background: var(--demo-highlight);
+    opacity: 0;
+    transition: opacity 600ms ease-out;
+  }
+  /* Sel angka di stepper: sorotan memenuhi sel. */
+  [data-hl][data-hl-fill]::before {
+    inset: 0;
+    border-radius: 0;
+  }
+  [data-hl="on"]::before {
+    opacity: 1;
+    transition: none;
+  }
+  /* Reset halus antar siklus */
+  [data-dim] {
+    opacity: 0.25;
+  }
+
+  /* Tombol − / + tampak diketuk (a/b bergantian agar animasi diputar ulang) */
+  [data-press]::before {
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: 4px;
+    background: var(--demo-highlight);
     opacity: 0;
   }
+  [data-press="a"] {
+    animation: tap-a 180ms ease-out;
+  }
+  [data-press="b"] {
+    animation: tap-b 180ms ease-out;
+  }
+  [data-press="a"]::before {
+    animation: tap-bg-a 180ms ease-out;
+  }
+  [data-press="b"]::before {
+    animation: tap-bg-b 180ms ease-out;
+  }
+  @keyframes tap-a {
+    40% {
+      transform: scale(0.82);
+    }
+  }
+  @keyframes tap-b {
+    40% {
+      transform: scale(0.82);
+    }
+  }
+  @keyframes tap-bg-a {
+    30% {
+      opacity: 1;
+    }
+  }
+  @keyframes tap-bg-b {
+    30% {
+      opacity: 1;
+    }
+  }
+
+  /* ---------- Cap nota: scale 1.6 → 1, rotasi -12° → -4°, 350 ms ---------- */
+  /* Elemen sudah memiliki rotate: -4deg; transform menambah -8deg di awal. */
+  [data-stamp="wait"] {
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+  }
   [data-stamp="in"] {
-    animation: stamp-in 250ms cubic-bezier(0.55, 0, 0.75, 0.2) both;
+    animation: stamp-in 350ms cubic-bezier(0.5, 0, 0.75, 0) both;
   }
   @keyframes stamp-in {
-    from {
+    0% {
       opacity: 0;
-      transform: scale(1.4) rotate(-8deg);
+      transform: scale(1.6) rotate(-8deg);
     }
-    to {
+    75% {
+      opacity: 1;
+      transform: scale(0.96) rotate(0deg);
+    }
+    100% {
       opacity: 1;
       transform: none;
     }
   }
 
-  /* Cara kerja: garis tergambar, lalu kartu 1-2-3, lalu chat */
+  /* ---------- Cara kerja ---------- */
+  /* Garis 900 ms → kartu 1, 2, 3 (jeda 200 ms) → "mengetik…" 1 s → gelembung */
   [data-steps]::before {
     transform-origin: left center;
   }
@@ -143,7 +227,7 @@ body {
     transform: scaleX(0);
   }
   [data-steps="play"]::before {
-    transition: transform 600ms ease-out;
+    transition: transform 900ms ease-in-out;
   }
   [data-step-line] {
     transform-origin: top center;
@@ -152,48 +236,48 @@ body {
     transform: scaleY(0);
   }
   [data-steps="play"] [data-step-line] {
-    transition: transform 400ms ease-out;
-    transition-delay: calc(var(--i) * 250ms);
+    transition: transform 450ms ease-in-out;
+    transition-delay: calc(var(--i) * 450ms);
   }
   [data-steps="hidden"] [data-step-card] {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(24px);
   }
   [data-steps="play"] [data-step-card] {
     transition:
-      opacity 300ms ease-out,
-      transform 300ms ease-out;
-    transition-delay: calc(600ms + var(--i) * 120ms);
+      opacity 500ms ease-out,
+      transform 500ms ease-out;
+    transition-delay: calc(900ms + var(--i) * 200ms);
   }
-  /* Langkah 3: kartu muncul ±840 ms → "mengetik…" 600 ms → gelembung */
+  /* Kartu 3 mulai 1300 ms → "mengetik…" 1300–2300 ms → gelembung 2300 ms */
   [data-steps="hidden"] [data-bubble] {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(8px);
   }
   [data-steps="play"] [data-bubble] {
     transition:
-      opacity 250ms ease-out,
-      transform 250ms ease-out;
-    transition-delay: 1440ms;
+      opacity 300ms ease-out,
+      transform 300ms ease-out;
+    transition-delay: 2300ms;
   }
   [data-steps="play"] [data-typing] {
-    animation: typing-show 600ms linear 840ms both;
+    animation: typing-show 1000ms linear 1300ms both;
   }
   [data-steps="play"] [data-typing] > span {
-    animation: typing-dot 600ms ease-in-out 840ms 1;
+    animation: typing-dot 500ms ease-in-out 1400ms 2;
   }
   [data-steps="play"] [data-typing] > span:nth-child(2) {
-    animation-delay: 940ms;
+    animation-delay: 1500ms;
   }
   [data-steps="play"] [data-typing] > span:nth-child(3) {
-    animation-delay: 1040ms;
+    animation-delay: 1600ms;
   }
   @keyframes typing-show {
     0% {
       opacity: 0;
     }
     10%,
-    85% {
+    90% {
       opacity: 1;
     }
     100% {
@@ -212,7 +296,7 @@ body {
     }
   }
 
-  /* FAQ: jawaban memudar masuk saat dibuka, keluar saat ditutup */
+  /* ---------- FAQ ---------- */
   details[open] > [data-faq-answer] {
     animation: faq-in 200ms ease-out;
   }
@@ -240,7 +324,8 @@ body {
   [data-reveal],
   [data-step-card],
   [data-bubble],
-  [data-stamp] {
+  [data-stamp],
+  [data-dim] {
     opacity: 1 !important;
     transform: none !important;
   }

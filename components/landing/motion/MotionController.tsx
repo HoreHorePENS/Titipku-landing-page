@@ -16,7 +16,7 @@ import { useEffect } from "react";
  * Dengan prefers-reduced-motion, tidak ada yang disembunyikan/dianimasikan.
  */
 
-const STAGGER_MS = 70; // jeda antar item yang muncul bersamaan (maks. 80 ms)
+const STAGGER_MS = 100; // jeda antar item dalam satu section yang muncul bersamaan
 const FAQ_CLOSE_MS = 150;
 
 export function MotionController() {
@@ -57,7 +57,8 @@ export function MotionController() {
           }
         });
       },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.1 },
+      // Mulai saat ±20% elemen terlihat, supaya animasinya sempat dilihat.
+      { threshold: 0.2 },
     );
 
     // Hanya elemen yang belum terlihat yang disiapkan untuk animasi.

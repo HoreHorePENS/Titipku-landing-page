@@ -9,7 +9,8 @@ import fs from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { DemoValue } from "./motion/VisitDemo";
+import { DemoNumber, DemoStepper } from "./motion/VisitDemo";
+import { STEPPER } from "./motion/stepperStyles";
 
 /**
  * Foto produk dari /public. Foto hanya dipakai jika file-nya ada saat build;
@@ -59,25 +60,28 @@ const DEFAULT_LABEL =
 
 function Stepper({ value }: { value: ReactNode }) {
   return (
-    <span className="flex items-center rounded-md border border-line-strong">
-      <span className="flex size-[30px] items-center justify-center text-base text-primary">
-        −
-      </span>
-      <span className="w-[30px] border-x border-line text-center font-mono text-[13px] leading-[30px] font-semibold tabular-nums">
-        {value}
-      </span>
-      <span className="flex size-[30px] items-center justify-center text-base text-primary">
-        +
-      </span>
+    <span className={STEPPER.root}>
+      <span className={STEPPER.button}>−</span>
+      <span className={STEPPER.value}>{value}</span>
+      <span className={STEPPER.button}>+</span>
     </span>
   );
 }
 
-function Row({ label, value }: { label: string; value: ReactNode }) {
+function Row({
+  label,
+  value,
+  demoField,
+}: {
+  label: string;
+  value: ReactNode;
+  /** Jika diisi, stepper ikut demo hitung di hero. */
+  demoField?: "remaining" | "returned";
+}) {
   return (
     <div className="flex items-center justify-between">
       <span className="text-[11px] font-semibold">{label}</span>
-      <Stepper value={value} />
+      {demoField ? <DemoStepper field={demoField} /> : <Stepper value={value} />}
     </div>
   );
 }
@@ -96,8 +100,8 @@ export function ProductCard({
   compact?: boolean;
   demo?: boolean;
 }) {
-  const v = (field: "remaining" | "returned" | "sold" | "amount", fallback: ReactNode) =>
-    demo ? <DemoValue field={field} /> : fallback;
+  const v = (field: "sold" | "amount", fallback: ReactNode) =>
+    demo ? <DemoNumber field={field} /> : fallback;
   return (
     <div className="flex flex-col gap-2 rounded-lg border border-line bg-surface p-2.5">
       <div className="flex items-center gap-2">
@@ -120,8 +124,8 @@ export function ProductCard({
           </span>
         </div>
       </div>
-      <Row label="Sisa di rak" value={v("remaining", p.remaining)} />
-      {p.returned !== undefined && <Row label="Retur/basi" value={v("returned", p.returned)} />}
+      <Row label="Sisa di rak" value={p.remaining} demoField={demo ? "remaining" : undefined} />
+      {p.returned !== undefined && <Row label="Retur/basi" value={p.returned} demoField={demo ? "returned" : undefined} />}
       <div className="flex justify-between rounded-md bg-primary-soft px-2 py-1.5 text-[11px] font-bold text-primary">
         <span>
           Terjual <span className="font-mono tabular-nums">{v("sold", p.sold)}</span>
@@ -150,7 +154,12 @@ export function PhoneVisitMock({
   demo?: boolean;
 }) {
   return (
-    <div role="img" aria-label={label} className="h-[636px] w-[316px]">
+    <div
+      role="img"
+      aria-label={label}
+      data-demo-phone={demo ? "" : undefined}
+      className="h-[636px] w-[316px]"
+    >
       <div
         aria-hidden="true"
         className="flex h-[620px] w-[300px] flex-col overflow-hidden rounded-[36px] border-8 border-ink bg-paper font-sans text-ink box-content select-none"
@@ -172,7 +181,7 @@ export function PhoneVisitMock({
           <div className="flex flex-col">
             <span className="text-[10px] text-ink-subtle">Tagihan</span>
             <span className="font-mono text-base font-semibold tabular-nums">
-              {demo ? <DemoValue field="total" /> : "Rp143.000"}
+              {demo ? <DemoNumber field="total" /> : "Rp143.000"}
             </span>
           </div>
           <span className="flex h-[38px] items-center rounded-md bg-primary px-5 text-[13px] font-bold text-white">
