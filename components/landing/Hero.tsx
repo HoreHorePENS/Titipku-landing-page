@@ -57,7 +57,9 @@ export function Hero() {
         <div className="absolute top-0 left-4 origin-top-left scale-[0.78]">
           <PhoneVisitMock demo />
         </div>
-        <div className="absolute top-[120px] right-3.5 rotate-3">
+        {/* <640 px: nota diturunkan ke area kartu Balado (statis) supaya tidak
+            menutupi stepper "Sisa di rak" yang disorot saat demo. */}
+        <div className="absolute top-[120px] right-3.5 rotate-3 max-sm:top-[276px] max-sm:right-2">
           <ReceiptMock variant="compact" />
         </div>
       </div>
