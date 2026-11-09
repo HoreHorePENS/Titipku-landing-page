@@ -1,29 +1,26 @@
 @import "tailwindcss";
 
-/*
- * Design token Titipku (sumber: "Titipku Landing.dc.html", section 3a).
- * Dipakai sebagai utilitas Tailwind, mis. bg-paper, text-ink-muted, border-line.
- */
+/* Design tokens, exposed as Tailwind colors in @theme below. */
 :root {
-  --paper: #faf7f0; /* latar halaman */
-  --canvas: #e6e1d6; /* kanvas luar */
+  --paper: #faf7f0;
+  --canvas: #e6e1d6;
   --surface: #ffffff;
-  --line: #e7e1d4; /* border halus */
-  --line-strong: #d6cfc0; /* border tegas */
-  --line-dashed: #cfc6b4; /* garis putus-putus nota */
-  --ink: #1c1917; /* teks utama */
-  --ink-muted: #57534e; /* teks sekunder */
-  --ink-subtle: #78716c; /* teks tersier */
+  --line: #e7e1d4;
+  --line-strong: #d6cfc0;
+  --line-dashed: #cfc6b4;
+  --ink: #1c1917;
+  --ink-muted: #57534e;
+  --ink-subtle: #78716c;
   --primary: #0f766e;
   --primary-hover: #0b5f58;
   --primary-soft: #e3f0ee;
   --status-lunas: #15803d;
   --status-sebagian: #b45309;
   --status-belum-lunas: #b91c1c;
-  --notebook: #fffdf5; /* kertas buku tulis */
-  --notebook-rule: #bfdbfe; /* garis biru muda */
-  --notebook-margin: #f9a8b4; /* garis margin merah muda */
-  --ink-pen: #1e3a8a; /* tinta tulisan tangan */
+  --notebook: #fffdf5;
+  --notebook-rule: #bfdbfe;
+  --notebook-margin: #f9a8b4;
+  --ink-pen: #1e3a8a;
   --hatch-a: #efe8da;
   --hatch-b: #f7f3ea;
 }
@@ -74,26 +71,22 @@ body {
   border-radius: 4px;
 }
 
-/* Arsiran thumbnail produk di mockup HP. */
 @utility hatch-xs {
   background: repeating-linear-gradient(135deg, var(--hatch-a) 0 4px, var(--hatch-b) 4px 8px);
 }
 
-/* ------------------------------------------------------------------ */
-/* Animasi (lihat components/landing/motion). Tanpa layout shift: hanya   */
-/* transform & opacity (bingkai pilihan = opacity pada ::before).        */
-/* Semua state tersembunyi dipasang oleh JS, jadi tanpa JS konten tetap   */
-/* tampil; dengan prefers-reduced-motion tidak ada aturan yang berlaku.   */
-/* ------------------------------------------------------------------ */
+/*
+ * Motion: transform and opacity only, so nothing shifts layout. Hidden states
+ * are applied by JS, so content stays visible without JS or with reduced motion.
+ */
 
-/* Hero: tanpa demo (server/JS mati/reduced motion) pil status menampilkan
-   keadaan akhir "Disetujui"; pil "Menunggu" hanya muncul saat demo berjalan. */
+/* Without the demo (SSR, no JS, reduced motion) the pill shows the final state. */
 [data-req-pill="wait"] {
   opacity: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  /* ---------- Reveal saat scroll: 24px, 500 ms, jeda 100 ms ---------- */
+  /* Scroll reveal */
   [data-reveal="hidden"] {
     opacity: 0;
     transform: translateY(24px);
@@ -105,8 +98,7 @@ body {
     transition-delay: var(--reveal-delay, 0ms);
   }
 
-  /* ---------- Hero: cari warung → ajukan → disetujui (MatchDemo) ---------- */
-  /* Kartu warung muncul satu per satu (jeda 250 ms). */
+  /* Hero demo, driven by MatchDemo */
   [data-m-list="off"] [data-shop-card] {
     opacity: 0;
     transform: translateY(12px);
@@ -120,7 +112,6 @@ body {
       transform 400ms ease-out;
     transition-delay: calc(var(--i) * 250ms);
   }
-  /* Warung yang dipilih: bingkai teal (opacity pada ::before). */
   [data-match] [data-pick]::before {
     content: "";
     position: absolute;
@@ -134,7 +125,6 @@ body {
   [data-m-select="on"] [data-pick]::before {
     opacity: 1;
   }
-  /* Tombol tampak diketuk. */
   [data-m-select="on"] [data-ajukan] {
     animation: btn-tap 240ms ease-out 350ms;
   }
@@ -146,7 +136,6 @@ body {
       transform: scale(0.88);
     }
   }
-  /* Kartu permintaan masuk ke HP warung. */
   [data-m-req="off"] [data-req-card] {
     opacity: 0;
     transform: translateY(12px);
@@ -159,7 +148,6 @@ body {
       opacity 400ms ease-out,
       transform 400ms ease-out;
   }
-  /* Status Menunggu → Disetujui (crossfade, lebar pil tetap). */
   [data-req-pill] {
     transition: opacity 200ms ease-out;
   }
@@ -169,8 +157,7 @@ body {
   [data-m-stamp="off"] [data-req-pill="done"] {
     opacity: 0;
   }
-  /* Cap DISETUJUI: scale 1.6 → 1, rotasi -12° → -4°, 350 ms.
-     Elemen sudah memiliki rotate: -4deg; transform menambah -8deg di awal. */
+  /* The stamp already has rotate: -4deg; the keyframes add the extra -8deg. */
   [data-m-stamp="off"] [data-req-stamp] {
     opacity: 0;
     transition: opacity 200ms ease-out;
@@ -193,8 +180,7 @@ body {
     }
   }
 
-  /* ---------- Cara kerja ---------- */
-  /* Garis 900 ms → kartu 1–4 (jeda 200 ms). Diputar ulang saat tab berganti. */
+  /* How it works timeline; RoleTabs replays it on tab change. */
   [data-steps]::before {
     transform-origin: left center;
   }
@@ -225,7 +211,7 @@ body {
     transition-delay: calc(900ms + var(--i) * 200ms);
   }
 
-  /* ---------- FAQ ---------- */
+  /* FAQ */
   details[open] > [data-faq-answer] {
     animation: faq-in 200ms ease-out;
   }
@@ -248,7 +234,7 @@ body {
   }
 }
 
-/* Saat dicetak/PDF, tampilkan semua elemen walau belum pernah di-scroll. */
+/* Print everything, including sections that were never scrolled into view. */
 @media print {
   [data-reveal],
   [data-step-card],

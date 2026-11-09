@@ -1,18 +1,9 @@
-/**
- * Kartu produk bergaya layar "Catat Kunjungan" (data contoh Warung Bu Sri).
- * Dipakai di kartu langkah "Pantau stok, terjual, dan tagihan" (Cara kerja).
- */
-
 import fs from "node:fs";
 import path from "node:path";
 import Image from "next/image";
 import type { ReactNode } from "react";
 
-/**
- * Foto produk dari /public. Foto hanya dipakai jika file-nya ada saat build;
- * jika belum ada, tetap tampil kotak placeholder berarsir.
- * File: public/landing/produk/original.webp (maks. 320×320 px).
- */
+// Fall back to the hatched placeholder when the photo isn't in /public at build time.
 function photoIfExists(src: string): string | undefined {
   return fs.existsSync(path.join(process.cwd(), "public", src)) ? src : undefined;
 }
@@ -21,7 +12,7 @@ type Product = {
   name: string;
   previous: number;
   remaining: number;
-  returned?: number;
+  returned: number;
   sold: number;
   amount: string;
   photo?: string;
@@ -37,7 +28,6 @@ export const PRODUCT: Product = {
   photo: photoIfExists("/landing/produk/original.webp"),
 };
 
-/** Kelas stepper (− angka +). */
 const STEPPER = {
   root: "flex items-center rounded-md border border-line-strong",
   button: "relative flex size-[30px] items-center justify-center text-base text-primary",
@@ -64,7 +54,6 @@ function Row({ label, value }: { label: string; value: ReactNode }) {
   );
 }
 
-/** Kartu produk: sisa di rak, retur, dan terjual (versi ringkas). */
 export function ProductCard({ p }: { p: Product }) {
   return (
     <div className="flex flex-col gap-2 rounded-lg border border-line bg-surface p-2.5">
@@ -89,7 +78,7 @@ export function ProductCard({ p }: { p: Product }) {
         </div>
       </div>
       <Row label="Sisa di rak" value={p.remaining} />
-      {p.returned !== undefined && <Row label="Retur/basi" value={p.returned} />}
+      <Row label="Retur/basi" value={p.returned} />
       <div className="flex justify-between rounded-md bg-primary-soft px-2 py-1.5 text-[11px] font-bold text-primary">
         <span>
           Terjual <span className="font-mono tabular-nums">{p.sold}</span>

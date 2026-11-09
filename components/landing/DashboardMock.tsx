@@ -1,13 +1,7 @@
 import type { ReactNode } from "react";
 
-/**
- * Mockup statis ringkasan untuk pemilik usaha (data contoh).
- * Isi bersifat dekoratif untuk pembaca layar; ringkasannya ada di `aria-label`.
- */
-
 type Tone = "basi" | "belum-bayar" | "retur";
 
-/** Warna status di tepi kiri baris (bukan ikon). */
 const TONE: Record<Tone, string> = {
   basi: "border-status-sebagian",
   "belum-bayar": "border-status-belum-lunas",

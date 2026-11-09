@@ -2,28 +2,17 @@
 
 import { useEffect } from "react";
 
-/**
- * Animasi masuk & interaksi kecil landing page (tanpa library).
- *
- * - [data-reveal]: muncul halus saat pertama kali terlihat (sekali saja).
- * - [data-steps]: linimasa section "Cara kerja" (garis → kartu 1–4 berurutan).
- *   Diputar ulang oleh RoleTabs saat tab berganti. Detailnya di globals.css.
- * - details[data-faq]: transisi saat accordion ditutup.
- *
- * Prinsip: HTML server selalu menampilkan keadaan akhir. Elemen baru
- * disembunyikan oleh JS setelah hidrasi, dan hanya jika masih di bawah layar,
- * jadi tidak ada kedipan dan konten tetap terlihat bila JS gagal dimuat.
- * Dengan prefers-reduced-motion, tidak ada yang disembunyikan/dianimasikan.
- */
+// The server HTML is the final state. JS only hides elements still below the fold,
+// so nothing flashes and content survives a failed JS load.
 
-const STAGGER_MS = 100; // jeda antar item dalam satu section yang muncul bersamaan
+const STAGGER_MS = 100;
 const FAQ_CLOSE_MS = 150;
 
 export function MotionController() {
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // FAQ: tunda penutupan sebentar supaya isi jawaban sempat memudar.
+    // Delay closing so the answer can fade out first.
     const onClick = (event: MouseEvent) => {
       const summary = (event.target as Element | null)?.closest("details[data-faq] > summary");
       if (!summary || reduce) return;
@@ -57,11 +46,9 @@ export function MotionController() {
           }
         });
       },
-      // Mulai saat ±20% elemen terlihat, supaya animasinya sempat dilihat.
       { threshold: 0.2 },
     );
 
-    // Hanya elemen yang belum terlihat yang disiapkan untuk animasi.
     const belowFold = (el: Element) => el.getBoundingClientRect().top > window.innerHeight;
     document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
       if (!belowFold(el)) return;

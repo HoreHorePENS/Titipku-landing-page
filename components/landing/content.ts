@@ -1,9 +1,5 @@
-/**
- * Teks dan tautan landing page. Ubah nilainya di sini tanpa perlu menyentuh
- * komponen. Teks dengan `mobile`/`desktop` tampil sesuai lebar layar.
- */
+// All landing page copy and links. Fields with `mobile`/`desktop` switch at the md breakpoint.
 
-/** Semua tautan landing page. */
 export const LINKS = {
   masuk: "/masuk",
   daftar: "/daftar",
@@ -13,7 +9,6 @@ export const LINKS = {
   kontak: "mailto:ammararsyad1205@gmail.com",
 } as const;
 
-/** Judul & deskripsi halaman (tab browser, mesin pencari, Open Graph). */
 export const META = {
   title: "Titipku — Titip jual tanpa keliling tanya satu-satu",
   description:
@@ -21,9 +16,7 @@ export const META = {
   ogTitle: "Titipku — Penitip ketemu warung yang membuka titipan",
 } as const;
 
-/* ------------------------------------------------------------------ */
-/* Header, CTA penutup, footer                                         */
-/* ------------------------------------------------------------------ */
+// Header, closing CTA, footer
 
 export const HEADER = {
   nav: [
@@ -46,9 +39,7 @@ export const FOOTER = {
   kontak: "Kontak",
 } as const;
 
-/* ------------------------------------------------------------------ */
-/* Hero                                                                */
-/* ------------------------------------------------------------------ */
+// Hero
 
 export const HERO = {
   eyebrow: "Untuk penitip dan warung",
@@ -59,19 +50,15 @@ export const HERO = {
   ctaWarung: "Daftarkan warung saya",
   cobaDemo: "Coba Demo",
   note: "Jalan di HP Android biasa. Tetap bisa mencatat saat sinyal lemah.",
-  /** Deskripsi visual hero untuk pembaca layar. */
   visualLabel:
     "Contoh alur Titipku: penitip melihat daftar warung yang membuka titipan di sekitar Rungkut, Surabaya, lalu mengajukan titip ke Warung Bu Sri. Di HP warung, permintaan titip dari Keripik Pisang Rina berisi 40 bungkus disetujui.",
 } as const;
 
-/* ------------------------------------------------------------------ */
-/* Mockup "Cari warung" (ShopListMock) dan permintaan titip            */
-/* ------------------------------------------------------------------ */
+// Shop list and request card mockups
 
 export type Shop = {
   name: string;
   area: string;
-  /** Jenis produk yang diterima. */
   accepts: string;
   open: boolean;
 };
@@ -120,9 +107,7 @@ export const REQUEST = {
   stamp: "DISETUJUI",
 } as const;
 
-/* ------------------------------------------------------------------ */
-/* Untuk siapa                                                         */
-/* ------------------------------------------------------------------ */
+// Audience
 
 export const AUDIENCE = {
   title: "Dibuat untuk dua sisi titip jual",
@@ -140,9 +125,7 @@ export const AUDIENCE = {
   ],
 } as const;
 
-/* ------------------------------------------------------------------ */
-/* Masalahnya                                                          */
-/* ------------------------------------------------------------------ */
+// Problem
 
 export const PROBLEM = {
   title: "Mau titip saja harus keliling dulu",
@@ -168,9 +151,7 @@ export const PROBLEM = {
   ],
 } as const;
 
-/* ------------------------------------------------------------------ */
-/* Cara kerja                                                          */
-/* ------------------------------------------------------------------ */
+// How it works
 
 export type StepCardId =
   | "search"
@@ -257,10 +238,7 @@ export const HOW_IT_WORKS = {
   tracks: readonly { id: string; tab: string; steps: readonly Step[] }[];
 };
 
-/**
- * Isi kartu visual tiap langkah "Cara kerja" (data contoh). `label` dibacakan
- * pembaca layar sebagai ringkasan kartu.
- */
+// `label` is read by screen readers as a summary of each card.
 export const STEP_CARDS = {
   search: {
     label:
@@ -318,9 +296,7 @@ export const STEP_CARDS = {
   },
 } as const satisfies Record<StepCardId, { label: string; [key: string]: unknown }>;
 
-/* ------------------------------------------------------------------ */
-/* Manfaat (#manfaat)                                                  */
-/* ------------------------------------------------------------------ */
+// Benefits
 
 export const BENEFITS = {
   title: "Untung buat dua-duanya",
@@ -346,9 +322,7 @@ export const BENEFITS = {
   ],
 } as const;
 
-/* ------------------------------------------------------------------ */
-/* Fitur (#fitur)                                                      */
-/* ------------------------------------------------------------------ */
+// Features
 
 export const FEATURES = {
   title: "Yang dipakai tiap minggu",
@@ -382,9 +356,7 @@ export const FEATURES = {
   ],
 } as const;
 
-/* ------------------------------------------------------------------ */
-/* FAQ (#faq)                                                          */
-/* ------------------------------------------------------------------ */
+// FAQ
 
 export const FAQ = {
   title: "Pertanyaan umum",
@@ -416,22 +388,16 @@ export const FAQ = {
   ],
 } as const;
 
-/* ------------------------------------------------------------------ */
-/* Tim                                                                 */
-/* ------------------------------------------------------------------ */
+// Team
 
-/** Data tim untuk section "Tim di balik Titipku" (#tim). */
 export const TEAM_INFO = {
-  namaTim: "HoreHore",
-  institusi: "Politeknik Elektronika Negeri Surabaya",
+  teamName: "HoreHore",
+  institution: "Politeknik Elektronika Negeri Surabaya",
 } as const;
 
-/**
- * Foto potret WebP di public/landing/tim/ (maks. lebar 1200 px, tanpa EXIF).
- * Jika file belum ada saat build, kartu menampilkan inisial nama.
- */
+// Members without a photo in public/landing/tim/ get an initials placeholder.
 export const TEAM = [
-  { nama: "Daffi' Achmad Wijayanto", peran: "Frontend", foto: "/landing/tim/anggota-1.webp" },
-  { nama: "Muhammad Farid Al Hasan", peran: "Backend", foto: "/landing/tim/anggota-2.webp" },
-  { nama: "Andi Muhammad Ammar Arsyad", peran: "Frontend", foto: "/landing/tim/anggota-3.webp" },
+  { name: "Daffi' Achmad Wijayanto", role: "Frontend", photo: "/landing/tim/anggota-1.webp" },
+  { name: "Muhammad Farid Al Hasan", role: "Backend", photo: "/landing/tim/anggota-2.webp" },
+  { name: "Andi Muhammad Ammar Arsyad", role: "Frontend", photo: "/landing/tim/anggota-3.webp" },
 ] as const;

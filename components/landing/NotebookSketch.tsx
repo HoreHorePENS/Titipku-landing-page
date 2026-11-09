@@ -1,21 +1,11 @@
 import type { CSSProperties, ReactNode } from "react";
 
-/**
- * Ilustrasi halaman buku tulis (HTML/CSS, tanpa gambar) untuk panel
- * "Sebelum": catatan keliling mencari tempat titip, lalu hitungan titipan.
- * Teksnya tetap teks HTML sehingga bisa dibaca pembaca layar.
- *
- * Kertas bergaris: jarak garis = --rule (22 px di mobile, 28 px di desktop).
- * Setiap baris teks setinggi --rule sehingga tulisan selalu jatuh di garis.
- * Di mobile baris tidak dilipat; sisi kanan terpotong seperti foto halaman.
- */
+// Each line is exactly --rule tall, so the handwriting always sits on a ruled line.
 
-/** Angka yang dicoret dengan tinta. */
 function Crossed({ children }: { children: ReactNode }) {
   return <s className="decoration-ink-pen decoration-2">{children}</s>;
 }
 
-/** Angka yang dilingkari. */
 function Circled({ children }: { children: ReactNode }) {
   return (
     <span className="inline-block -rotate-6 rounded-[50%] border-[1.5px] border-ink-pen px-1 leading-[0.9]">
@@ -26,12 +16,10 @@ function Circled({ children }: { children: ReactNode }) {
 
 type Note = {
   text: ReactNode;
-  /** Kemiringan & geser horizontal kecil supaya terasa ditulis tangan. */
+  /** Small per-line offsets so it reads as handwriting. */
   tilt: number;
   shift: number;
-  /** Beri satu baris kosong sebelum catatan ini (desktop). */
   gapBefore?: boolean;
-  /** Sembunyikan di mobile (halaman lebih pendek). */
   desktopOnly?: boolean;
 };
 
@@ -85,7 +73,6 @@ export function NotebookSketch({ caption }: { caption: string }) {
       aria-label="Ilustrasi catatan titipan di buku tulis yang penuh coretan"
       className="relative h-[240px] overflow-hidden rounded-md border border-line bg-notebook [--rule:22px] md:h-[440px] md:[--rule:28px]"
     >
-      {/* Garis horizontal biru muda + garis margin merah muda (dekoratif). */}
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-[repeating-linear-gradient(to_bottom,transparent_0_calc(var(--rule)-1px),var(--notebook-rule)_calc(var(--rule)-1px)_var(--rule))] bg-[position:0_var(--rule)]"

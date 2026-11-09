@@ -1,11 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
   images: {
-    // 80 dipakai untuk foto tim (lihat TeamSection); 75 = bawaan Next.js.
+    // 80 is used by the team photos.
     qualities: [75, 80],
   },
   turbopack: {

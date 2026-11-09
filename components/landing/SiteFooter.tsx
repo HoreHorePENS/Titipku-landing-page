@@ -10,7 +10,6 @@ export function SiteFooter() {
         <p>
           <span className="font-extrabold text-primary">{FOOTER.brand}</span> · {FOOTER.tagline}
         </p>
-        {/* Di mobile desain hanya menampilkan baris merek. */}
         <a href={LINKS.kontak} className={`${textLink} -my-3 max-md:hidden`}>
           {FOOTER.kontak}
         </a>

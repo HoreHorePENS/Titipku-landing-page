@@ -1,7 +1,7 @@
 import { FAQ } from "./content";
 import { container, SectionTitle } from "./ui";
 
-/** Accordion native <details>/<summary>: bisa dibuka-tutup dengan Enter/Spasi. */
+// Native <details>/<summary> gives keyboard support without extra JS.
 export function FaqSection() {
   return (
     <section id="faq" aria-labelledby="faq-title" className="border-t border-line bg-surface">

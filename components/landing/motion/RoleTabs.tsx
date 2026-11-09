@@ -2,17 +2,7 @@
 
 import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 
-/**
- * Tab peran (Penitip / Warung) untuk section "Cara kerja", mengikuti pola
- * WAI-ARIA Tabs: role tablist/tab/tabpanel, roving tabindex, panah kiri/kanan,
- * Home/End, aktivasi otomatis saat fokus berpindah.
- *
- * Kedua panel dirender di server; panel yang tidak aktif diberi kelas `hidden`.
- * Tanpa JS, <noscript> menampilkan kedua panel (masing-masing dengan judul)
- * dan menyembunyikan tab.
- * Saat tab berganti, linimasa langkah ([data-steps]) diputar ulang
- * (kecuali prefers-reduced-motion).
- */
+// WAI-ARIA tabs: roving tabindex, arrow/Home/End keys, activation follows focus.
 export function RoleTabs({
   idPrefix,
   label,
@@ -35,7 +25,7 @@ export function RoleTabs({
     const steps = panelRefs.current[index]?.querySelector<HTMLElement>("[data-steps]");
     if (!steps || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     steps.dataset.steps = "hidden";
-    // Dua frame: biarkan panel tampil dalam keadaan tersembunyi dulu, lalu putar.
+    // Wait two frames so the panel paints hidden before the timeline plays.
     requestAnimationFrame(() => requestAnimationFrame(() => (steps.dataset.steps = "play")));
   };
 
@@ -107,12 +97,11 @@ export function RoleTabs({
           aria-labelledby={tabId(i)}
           tabIndex={0}
           data-role-panel=""
-          // Kelas `hidden` (bukan atribut hidden): atribut hidden diberi
-          // display:none !important di lapisan base Tailwind sehingga tidak
-          // bisa ditimpa gaya <noscript>.
+          // A class, not the hidden attribute: Tailwind makes [hidden] !important in a
+          // cascade layer, which the <noscript> override can't beat.
           className={`rounded-lg focus-visible:outline-offset-4 ${i === active ? "" : "hidden"}`}
         >
-          {/* Judul panel hanya tampil tanpa JS (saat tab disembunyikan). */}
+          {/* Only shown without JS, when the tablist is hidden. */}
           <h3 data-role-heading="" className="mb-6 hidden text-xl font-extrabold">
             {tabs[i].label}
           </h3>

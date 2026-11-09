@@ -1,20 +1,20 @@
 import type { CSSProperties } from "react";
 import { SHOP_LIST, type Shop } from "./content";
 
-/**
- * Mockup HP statis berisi layar "Cari warung" (sisi penitip). Ukuran asli
- * 316 × 636 px; atur skala lewat pembungkus.
- * Isi dekoratif untuk pembaca layar; deskripsinya lewat `label`.
- *
- * Atribut data-shop-card / data-pick / data-ajukan dipakai animasi hero
- * (lihat motion/MatchDemo.tsx). Di luar hero, mockup tampil statis.
- */
+// data-shop-card, data-pick and data-ajukan are animated by MatchDemo in the hero.
 
 const OPEN_BADGE = "bg-primary-soft text-primary";
 const FULL_BADGE = "bg-canvas/60 text-ink-muted";
 
-/** Satu kartu warung. Dipakai juga di kartu langkah "Cara kerja". */
-export function ShopCard({ shop, index = 0, pick = false }: { shop: Shop; index?: number; pick?: boolean }) {
+export function ShopCard({
+  shop,
+  index = 0,
+  pick = false,
+}: {
+  shop: Shop;
+  index?: number;
+  pick?: boolean;
+}) {
   return (
     <div
       data-shop-card=""
@@ -50,7 +50,6 @@ export function ShopCard({ shop, index = 0, pick = false }: { shop: Shop; index?
   );
 }
 
-/** Kolom pencarian + chip filter (dipakai juga di kartu langkah). */
 export function ShopSearch() {
   return (
     <div className="flex flex-col gap-2">
@@ -79,9 +78,9 @@ export function ShopSearch() {
   );
 }
 
-export function ShopListMock({ label = SHOP_LIST.label }: { label?: string }) {
+export function ShopListMock() {
   return (
-    <div role="img" aria-label={label} data-shop-phone="" className="h-[636px] w-[316px]">
+    <div role="img" aria-label={SHOP_LIST.label} data-shop-phone="" className="h-[636px] w-[316px]">
       <div
         aria-hidden="true"
         className="box-content flex h-[620px] w-[300px] flex-col overflow-hidden rounded-[36px] border-8 border-ink bg-paper font-sans text-ink select-none"

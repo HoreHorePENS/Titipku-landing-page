@@ -1,20 +1,10 @@
 import { REQUEST } from "./content";
 
-/**
- * Kartu "Permintaan titip baru" di HP warung (komponen statis).
- * - variant "full": 290 px, rincian produk (hero desktop).
- * - variant "compact": 196 px, ringkas (hero mobile & kartu langkah).
- * - status "approved": bercap DISETUJUI (keadaan akhir); "pending": belum.
- *
- * Atribut data-req-* dipakai animasi hero (motion/MatchDemo.tsx): pil status
- * berganti Menunggu → Disetujui dan cap distempel. Tanpa JS / tanpa demo,
- * kartu tampil sesuai `status`.
- */
+// data-req-* hooks are animated by MatchDemo; elsewhere the card renders `status` as is.
 
 type Props = {
   variant?: "full" | "compact";
   status?: "pending" | "approved";
-  /** Tampilkan baris "HP warung · …" di atas kartu. */
   device?: boolean;
 };
 
@@ -55,7 +45,7 @@ export function RequestCardMock({ variant = "full", status = "approved", device 
             <span className={`font-extrabold ${compact ? "text-xs" : "text-[15px]"}`}>
               {REQUEST.title}
             </span>
-            {/* Dua pil ditumpuk di sel grid yang sama → lebar tetap saat berganti. */}
+            {/* Both pills share one grid cell so the width stays put when they swap. */}
             <span className="grid shrink-0 justify-items-end">
               {approved ? (
                 <>

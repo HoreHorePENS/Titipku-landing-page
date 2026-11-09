@@ -2,35 +2,21 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-/**
- * Animasi hero: cari warung → ajukan titip → disetujui.
- *
- * Mulai saat mockup HP ±50% terlihat. Satu siklus (ms sejak siklus mulai):
- *   0          reset: kartu warung & kartu permintaan memudar, cap hilang
- *   500–1650   daftar warung muncul satu per satu (jeda 250 ms)
- *   2000       Warung Bu Sri dipilih (bingkai teal), tombol "Ajukan titip" diketuk
- *   2800       kartu permintaan muncul di HP warung, status "Menunggu"
- *   4000       tombol "Terima" diketuk
- *   4300       status → "Disetujui", cap DISETUJUI distempel (350 ms)
- *   4650–8650  ditahan 4 detik, lalu siklus berikutnya
- * Maksimal 3 siklus, lalu berhenti di keadaan akhir.
- *
- * Komponen ini hanya mengatur atribut data-m-* di pembungkus; tampilannya
- * diatur CSS (globals.css, "Hero: cari warung"). Server render / JS mati /
- * prefers-reduced-motion: tanpa atribut → mockup tampil di keadaan akhir.
- */
+// Toggles data-m-* flags; globals.css animates them. With no JS or reduced motion
+// no flags are set, so the mockups simply show their final state.
 
-const T = { list: 500, select: 2000, req: 2800, accept: 4000, stamp: 4300, cycle: 8650 };
+const TIMING = { list: 500, select: 2000, req: 2800, accept: 4000, stamp: 4300, cycle: 8650 };
 const MAX_CYCLES = 3;
+const STAMP_MS = 350;
 
 type Flags = { list: boolean; select: boolean; req: boolean; accept: boolean; stamp: boolean };
 
 const flagsAt = (t: number): Flags => ({
-  list: t >= T.list,
-  select: t >= T.select,
-  req: t >= T.req,
-  accept: t >= T.accept,
-  stamp: t >= T.stamp,
+  list: t >= TIMING.list,
+  select: t >= TIMING.select,
+  req: t >= TIMING.req,
+  accept: t >= TIMING.accept,
+  stamp: t >= TIMING.stamp,
 });
 
 const same = (a: Flags, b: Flags) =>
@@ -54,12 +40,11 @@ export function MatchDemo({ children }: { children: ReactNode }) {
     const run = (now: number) => {
       if (!start) start = now;
       const elapsed = now - start;
-      const cycle = Math.floor(elapsed / T.cycle);
-      const t = elapsed - cycle * T.cycle;
+      const cycle = Math.floor(elapsed / TIMING.cycle);
+      const t = elapsed - cycle * TIMING.cycle;
       const next = flagsAt(t);
       setFlags((prev) => (prev && same(prev, next) ? prev : next));
-      // Siklus terakhir: berhenti setelah cap selesai distempel.
-      if (cycle >= MAX_CYCLES - 1 && t >= T.stamp + 350) return;
+      if (cycle >= MAX_CYCLES - 1 && t >= TIMING.stamp + STAMP_MS) return;
       raf = requestAnimationFrame(run);
     };
 
@@ -72,7 +57,7 @@ export function MatchDemo({ children }: { children: ReactNode }) {
       },
       { threshold: 0.5 },
     );
-    // Dua mockup (desktop & mobile); yang tersembunyi tidak pernah "terlihat".
+    // Desktop and mobile mockups; the hidden one never intersects.
     root.querySelectorAll("[data-shop-phone]").forEach((el) => observer.observe(el));
 
     return () => {

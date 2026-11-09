@@ -4,12 +4,7 @@ import { RoleTabs } from "./motion/RoleTabs";
 import { StepVisual } from "./StepCards";
 import { container, SectionTitle } from "./ui";
 
-/**
- * Desktop (≥1280 px): 4 kolom; di bawahnya langkah bertumpuk dengan garis
- * vertikal. Tiap <li> memakai subgrid 3 baris (nomor, teks, kartu) sehingga
- * teks dan kartu sejajar dan tinggi kartu sama. Garis putus-putus penghubung
- * (desktop) dibuat dengan ::before. Animasi: [data-steps] (MotionController).
- */
+// On desktop, subgrid keeps step text and cards aligned across columns.
 function StepList({ steps }: { steps: readonly Step[] }) {
   return (
     <ol

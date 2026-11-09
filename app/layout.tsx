@@ -14,7 +14,7 @@ const plexMono = IBM_Plex_Mono({
   weight: ["400", "500", "600"],
 });
 
-// Tulisan tangan untuk ilustrasi buku tulis; di bawah lipatan, jadi tidak di-preload.
+// Only used below the fold, so it isn't preloaded.
 const caveat = Caveat({
   variable: "--font-caveat",
   subsets: ["latin"],

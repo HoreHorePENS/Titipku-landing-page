@@ -20,12 +20,12 @@ out
 # production
 /build
 
-# misc / file sistem
+# misc
 .DS_Store
 Thumbs.db
 *.pem
 
-# screenshot pengecekan tampilan (lokal)
+# local visual-check screenshots
 .screenshots
 
 # debug

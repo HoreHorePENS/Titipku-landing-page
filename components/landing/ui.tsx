@@ -1,23 +1,14 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-/**
- * Catatan kontras: --ink-subtle (#78716C) di atas --paper (#FAF7F0) hanya 4,48:1,
- * jadi teks kecil di latar paper memakai --ink-muted; #78716C tetap dipakai di
- * latar putih (4,83:1).
- */
+// --ink-subtle is only 4.48:1 on --paper, so small text on paper uses --ink-muted.
 
-/** Lebar konten: 1440 px seperti artboard desktop, gutter 20/40/80 px. */
 export const container = "mx-auto w-full max-w-[1440px] px-5 md:px-10 xl:px-20";
 
-/** Gaya tautan teks bawaan desain (hover #0B5F58 + garis bawah). */
 export const textLink =
   "inline-flex min-h-11 items-center hover:text-primary-hover hover:underline";
 
-/**
- * Desain punya copy berbeda untuk mobile (390) dan desktop (1440).
- * Teks yang tersembunyi memakai display:none sehingga tidak dibacakan dua kali.
- */
+// The hidden variant is display:none, so screen readers never read both.
 export function Copy({ mobile, desktop }: { mobile: ReactNode; desktop: ReactNode }) {
   return (
     <>
@@ -56,8 +47,7 @@ export function ButtonLink({
   return (
     <Link
       href={href}
-      // TODO(halaman): aktifkan lagi prefetch setelah /masuk dan /daftar dibuat;
-      // sekarang prefetch ke halaman 404 memunculkan error di konsol.
+      // /masuk and /daftar don't exist yet; prefetching them logs 404s.
       prefetch={false}
       className={`inline-flex items-center justify-center rounded-md whitespace-nowrap transition-[color,background-color,border-color,scale] duration-150 motion-safe:active:scale-[0.98] ${VARIANT[variant]} ${SIZE[size]} ${className}`}
     >
@@ -66,7 +56,6 @@ export function ButtonLink({
   );
 }
 
-/** Judul h2 tiap bagian (26/32 di mobile, 40/48 di desktop). */
 export function SectionTitle({
   id,
   className = "",
@@ -75,7 +64,6 @@ export function SectionTitle({
 }: {
   id: string;
   className?: string;
-  /** Ikut animasi muncul saat terlihat (lihat MotionController). */
   reveal?: boolean;
   children: ReactNode;
 }) {
