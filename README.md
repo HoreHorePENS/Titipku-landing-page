@@ -36,7 +36,7 @@ components/landing/
   content.ts              Semua teks dan tautan
   ui.tsx                  Container, tombol, judul section
   SiteHeader.tsx, SiteFooter.tsx
-  Hero.tsx                Hero dengan demo cari warung → disetujui
+  Hero.tsx                Hero dengan animasi cari warung → disetujui
   AudienceStrip.tsx       Untuk siapa
   ProblemSection.tsx      Masalahnya (sebelum/sesudah)
   NotebookSketch.tsx      Ilustrasi buku tulis (HTML/CSS)
@@ -69,7 +69,7 @@ public/landing/
 ## Section
 
 1. **Header**: menu Cara kerja, Manfaat, FAQ; tombol Masuk dan Daftar.
-2. **Hero**: tombol untuk penitip dan warung, serta demo daftar warung sampai permintaan disetujui.
+2. **Hero**: tombol untuk penitip dan warung, serta animasi daftar warung sampai permintaan disetujui.
 3. **Untuk siapa** (`#untuk-siapa`): jenis usaha penitip dan warung.
 4. **Masalahnya** (`#masalah`): buku tulis dibandingkan dengan daftar warung di HP.
 5. **Cara kerja** (`#cara-kerja`): lima langkah untuk penitip dan untuk warung.

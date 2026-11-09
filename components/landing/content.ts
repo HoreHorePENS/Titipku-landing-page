@@ -5,7 +5,6 @@ export const LINKS = {
   daftar: "/daftar",
   daftarPenitip: "/daftar?peran=penitip",
   daftarWarung: "/daftar?peran=warung",
-  cobaDemo: "/masuk?demo=1",
 } as const;
 
 export const META = {
