@@ -1,10 +1,15 @@
 import Link from "next/link";
 import { HEADER, LINKS } from "./content";
+import { HeaderScrollState } from "./motion/HeaderScrollState";
 import { ButtonLink, container, textLink } from "./ui";
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-line">
+    <header
+      data-site-header=""
+      className="sticky top-0 z-50 border-b border-transparent bg-paper/85 backdrop-blur-md motion-safe:transition-[border-color,box-shadow] motion-safe:duration-200 data-scrolled:border-line data-scrolled:shadow-[0_1px_8px_rgb(28_25_23/0.06)]"
+    >
+      <HeaderScrollState />
       <div className={`${container} flex items-center justify-between py-4 md:py-[18px]`}>
         <Link
           href="/"

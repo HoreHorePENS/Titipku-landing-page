@@ -21,7 +21,7 @@ export function Copy({ mobile, desktop }: { mobile: ReactNode; desktop: ReactNod
 type ButtonLinkProps = {
   href: string;
   variant?: "primary" | "secondary";
-  size?: "md" | "lg";
+  size?: "md" | "lg" | "xl";
   className?: string;
   children: ReactNode;
 };
@@ -35,6 +35,7 @@ const VARIANT = {
 const SIZE = {
   md: "h-11 px-4 text-sm",
   lg: "h-[52px] px-6 text-base",
+  xl: "h-[60px] px-8 text-xl",
 };
 
 export function ButtonLink({

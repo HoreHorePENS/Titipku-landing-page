@@ -1,9 +1,9 @@
-import Link from "next/link";
-import { HERO, LINKS } from "./content";
+import { HERO } from "./content";
 import { MatchDemo } from "./motion/MatchDemo";
 import { RequestCardMock } from "./RequestCardMock";
 import { ShopListMock } from "./ShopListMock";
-import { ButtonLink, container, textLink } from "./ui";
+import { RoleCtas } from "./RoleCtas";
+import { container } from "./ui";
 
 export function Hero() {
   return (
@@ -25,22 +25,10 @@ export function Hero() {
             <p className="max-w-[560px] text-[17px] leading-[26px] text-pretty text-ink-muted md:text-xl md:leading-[30px]">
               {HERO.subtitle}
             </p>
-            <div className="flex flex-col gap-2 md:flex-row md:gap-3 md:pt-2">
-              <ButtonLink href={LINKS.daftarPenitip}>{HERO.ctaPenitip}</ButtonLink>
-              <ButtonLink href={LINKS.daftarWarung} variant="secondary">
-                {HERO.ctaWarung}
-              </ButtonLink>
+            <div className="md:pt-2">
+              <RoleCtas />
             </div>
-            <p className="-mt-1 flex flex-wrap items-center gap-x-3 text-sm text-ink-muted md:-mt-2">
-              <Link
-                href={LINKS.cobaDemo}
-                prefetch={false}
-                className={`${textLink} font-semibold text-primary underline underline-offset-2`}
-              >
-                {HERO.cobaDemo} →
-              </Link>
-              <span className="max-md:hidden">{HERO.note}</span>
-            </p>
+            <p className="-mt-2 text-sm text-ink-muted max-md:hidden">{HERO.note}</p>
           </div>
 
           {/* Fixed 620 × 660 composition, scaled down between 1024 and 1279 px. */}

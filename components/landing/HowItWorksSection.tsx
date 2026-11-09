@@ -4,12 +4,13 @@ import { RoleTabs } from "./motion/RoleTabs";
 import { StepVisual } from "./StepCards";
 import { container, SectionTitle } from "./ui";
 
-// On desktop, subgrid keeps step text and cards aligned across columns.
+// ≥1280px: one row of five; subgrid gives every title block the same height so the
+// cards start on one line and share a height. 640–1279px: text left, card right.
 function StepList({ steps }: { steps: readonly Step[] }) {
   return (
     <ol
       data-steps=""
-      className="relative flex flex-col xl:grid xl:grid-cols-4 xl:grid-rows-[auto_auto_1fr] xl:gap-x-10 xl:before:absolute xl:before:top-[27px] xl:before:right-[calc(25%-2rem)] xl:before:left-7 xl:before:border-t-[1.5px] xl:before:border-dashed xl:before:border-primary xl:before:content-['']"
+      className="relative flex flex-col xl:grid xl:grid-cols-5 xl:grid-rows-[auto_auto_1fr] xl:gap-x-5 xl:before:absolute xl:before:top-[27px] xl:before:right-[calc(20%-44px)] xl:before:left-7 xl:before:border-t-[1.5px] xl:before:border-dashed xl:before:border-primary xl:before:content-['']"
     >
       {steps.map((step, i) => {
         const last = i === steps.length - 1;
@@ -35,14 +36,13 @@ function StepList({ steps }: { steps: readonly Step[] }) {
               )}
             </div>
             <div
-              className={`flex min-w-0 flex-1 flex-col gap-4 pt-2 xl:contents ${last ? "" : "pb-10"}`}
+              className={`flex min-w-0 flex-1 flex-col gap-4 pt-2 sm:grid sm:grid-cols-[minmax(0,1fr)_minmax(0,300px)] sm:items-start sm:gap-6 lg:grid-cols-[minmax(0,1fr)_340px] xl:contents ${last ? "" : "pb-10"}`}
             >
-              <div className="flex flex-col gap-1 md:gap-3">
-                <h3 className="text-[17px] font-bold md:text-xl">{step.title}</h3>
-                <p className="text-[15px] leading-[23px] text-ink-muted max-md:hidden">
+              <div className="flex flex-col gap-1 md:gap-2">
+                <h3 className="text-[17px] font-bold md:text-xl xl:text-lg">{step.title}</h3>
+                <p className="text-sm leading-[21px] text-ink-muted md:text-[15px] md:leading-[23px]">
                   {step.desc}
                 </p>
-                <p className="text-sm text-ink-muted md:hidden">{step.mobile}</p>
               </div>
               <StepVisual id={step.card} i={i} />
             </div>

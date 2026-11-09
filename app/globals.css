@@ -58,6 +58,11 @@
   }
 }
 
+/* Keep anchored section titles clear of the sticky header (81px tall incl. border). */
+main section[id] {
+  scroll-margin-top: 81px;
+}
+
 body {
   background: var(--paper);
   color: var(--ink);

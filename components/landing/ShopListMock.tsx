@@ -6,15 +6,42 @@ import { SHOP_LIST, type Shop } from "./content";
 const OPEN_BADGE = "bg-primary-soft text-primary";
 const FULL_BADGE = "bg-canvas/60 text-ink-muted";
 
+const BUTTON = "relative flex h-7 shrink-0 items-center rounded-md px-2.5 text-[11px] font-bold";
+
+/** Narrow version for the "Cara kerja" step cards: no accepted-products line. */
+function CompactShopCard({ shop }: { shop: Shop }) {
+  return (
+    <div className="flex flex-col gap-1.5 rounded-lg border border-line bg-surface p-2.5">
+      <div className="flex min-w-0 flex-col">
+        <span className="text-[13px] font-bold">{shop.name}</span>
+        <span className="text-[10px] text-ink-subtle">
+          {shop.area}, {SHOP_LIST.city}
+        </span>
+      </div>
+      <div className="flex items-center justify-between gap-2">
+        <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${shop.open ? OPEN_BADGE : FULL_BADGE}`}>
+          {shop.open ? SHOP_LIST.openLabel : SHOP_LIST.fullLabel}
+        </span>
+        <span className={`${BUTTON} ${shop.open ? "bg-primary text-white" : "border border-line text-ink-subtle"}`}>
+          {SHOP_LIST.action}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export function ShopCard({
   shop,
   index = 0,
   pick = false,
+  compact = false,
 }: {
   shop: Shop;
   index?: number;
   pick?: boolean;
+  compact?: boolean;
 }) {
+  if (compact) return <CompactShopCard shop={shop} />;
   return (
     <div
       data-shop-card=""
@@ -50,7 +77,7 @@ export function ShopCard({
   );
 }
 
-export function ShopSearch() {
+function ShopSearch() {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex h-9 items-center gap-2 rounded-md border border-line-strong bg-surface px-2.5 text-xs">

@@ -50,11 +50,17 @@ components/landing/
   ShopListMock.tsx        Mockup layar "Cari warung"
   RequestCardMock.tsx     Kartu permintaan titip di HP warung
   ProductCard.tsx         Kartu sisa/retur/terjual
+  ProductFormMock.tsx     Formulir produk (langkah 1 penitip)
+  ShopFormMock.tsx        Formulir pendaftaran warung (langkah 1 warung)
+  MapSnippet.tsx          Potongan peta dekoratif dengan pin
+  FormField.tsx           Isian formulir untuk mockup
+  RoleCtas.tsx            Pasangan tombol penitip/warung (hero, CTA penutup)
   DashboardMock.tsx       Ringkasan untuk penitip
   motion/
     MatchDemo.tsx         Animasi hero
     RoleTabs.tsx          Tab yang dapat diakses keyboard
     MotionController.tsx  Animasi saat scroll dan FAQ
+    HeaderScrollState.tsx Garis bawah header sticky setelah scroll
 public/landing/
   produk/                 Foto produk (WebP, maks. 320×320 px)
   tim/                    Foto tim (WebP, maks. lebar 1200 px)
@@ -63,10 +69,10 @@ public/landing/
 ## Section
 
 1. **Header**: menu Cara kerja, Manfaat, FAQ; tombol Masuk dan Daftar.
-2. **Hero**: tombol untuk penitip dan warung, tautan Coba Demo, serta demo daftar warung sampai permintaan disetujui.
+2. **Hero**: tombol untuk penitip dan warung, serta demo daftar warung sampai permintaan disetujui.
 3. **Untuk siapa** (`#untuk-siapa`): jenis usaha penitip dan warung.
 4. **Masalahnya** (`#masalah`): buku tulis dibandingkan dengan daftar warung di HP.
-5. **Cara kerja** (`#cara-kerja`): empat langkah untuk penitip dan untuk warung.
+5. **Cara kerja** (`#cara-kerja`): lima langkah untuk penitip dan untuk warung.
 6. **Untung buat dua-duanya** (`#manfaat`)
 7. **Fitur** (`#fitur`)
 8. **Pertanyaan umum** (`#faq`)
@@ -83,8 +89,6 @@ Teks ada di `components/landing/content.ts`, kecuali catatan tulisan tangan (`No
 | `daftar`        | `/daftar`                          |
 | `daftarPenitip` | `/daftar?peran=penitip`            |
 | `daftarWarung`  | `/daftar?peran=warung`             |
-| `cobaDemo`      | `/masuk?demo=1`                    |
-| `kontak`        | `mailto:ammararsyad1205@gmail.com` |
 
 ## Aksesibilitas dan performa
 

@@ -6,13 +6,38 @@ type Props = {
   variant?: "full" | "compact";
   status?: "pending" | "approved";
   device?: boolean;
+  /** Show the Tolak/Terima buttons; without them the stamp sits on its own row. */
+  actions?: boolean;
+  /** Shrink to the parent's width (compact only). */
+  fluid?: boolean;
 };
 
 const PILL_BASE = "rounded px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap";
 const PILL_WAIT = `${PILL_BASE} bg-status-sebagian/10 text-status-sebagian`;
 const PILL_DONE = `${PILL_BASE} bg-primary-soft text-status-lunas`;
 
-export function RequestCardMock({ variant = "full", status = "approved", device = true }: Props) {
+function Stamp({ compact, className }: { compact: boolean; className: string }) {
+  return (
+    <span
+      data-req-stamp=""
+      className={`${className} -rotate-4 rounded border-[1.5px] border-status-lunas bg-surface font-extrabold text-status-lunas ${
+        compact
+          ? "top-0.5 px-1.5 py-[3px] text-[8px] tracking-[0.08em]"
+          : "-top-0.5 px-2.5 py-1 text-xs tracking-[0.12em]"
+      }`}
+    >
+      {REQUEST.stamp}
+    </span>
+  );
+}
+
+export function RequestCardMock({
+  variant = "full",
+  status = "approved",
+  device = true,
+  actions = true,
+  fluid = false,
+}: Props) {
   const compact = variant === "compact";
   const approved = status === "approved";
   const label = `${REQUEST.title} di HP warung dari ${REQUEST.from}: ${REQUEST.products}, ${REQUEST.qty}. Status: ${
@@ -24,7 +49,7 @@ export function RequestCardMock({ variant = "full", status = "approved", device 
       role="img"
       aria-label={label}
       data-req-card=""
-      className={compact ? "w-[196px]" : "w-[290px]"}
+      className={compact ? (fluid ? "w-full max-w-[196px]" : "w-[196px]") : "w-[290px]"}
     >
       <div aria-hidden="true" className="flex flex-col gap-1.5 select-none">
         {device && (
@@ -79,35 +104,28 @@ export function RequestCardMock({ variant = "full", status = "approved", device 
             </div>
           </dl>
 
-          <div className="relative flex items-center gap-1.5">
-            <span
-              className={`flex items-center rounded-md border border-line-strong font-semibold text-ink-muted ${
-                compact ? "h-7 px-2 text-[10px]" : "h-8 px-3.5 text-xs"
-              }`}
-            >
-              {REQUEST.reject}
-            </span>
-            <span
-              data-req-accept=""
-              className={`relative flex items-center rounded-md bg-primary font-bold text-white ${
-                compact ? "h-7 px-2 text-[10px]" : "h-8 px-3.5 text-xs"
-              }`}
-            >
-              {REQUEST.accept}
-            </span>
-            {approved && (
+          {actions ? (
+            <div className="relative flex items-center gap-1.5">
               <span
-                data-req-stamp=""
-                className={`absolute right-0 -rotate-4 rounded border-[1.5px] border-status-lunas bg-surface font-extrabold text-status-lunas ${
-                  compact
-                    ? "top-0.5 px-1.5 py-[3px] text-[8px] tracking-[0.08em]"
-                    : "-top-0.5 px-2.5 py-1 text-xs tracking-[0.12em]"
+                className={`flex items-center rounded-md border border-line-strong font-semibold text-ink-muted ${
+                  compact ? "h-7 px-2 text-[10px]" : "h-8 px-3.5 text-xs"
                 }`}
               >
-                {REQUEST.stamp}
+                {REQUEST.reject}
               </span>
-            )}
-          </div>
+              <span
+                data-req-accept=""
+                className={`relative flex items-center rounded-md bg-primary font-bold text-white ${
+                  compact ? "h-7 px-2 text-[10px]" : "h-8 px-3.5 text-xs"
+                }`}
+              >
+                {REQUEST.accept}
+              </span>
+              {approved && <Stamp compact={compact} className="absolute right-0" />}
+            </div>
+          ) : (
+            approved && <Stamp compact={compact} className="self-start" />
+          )}
         </div>
       </div>
     </div>
