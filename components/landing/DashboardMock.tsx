@@ -17,7 +17,7 @@ const ALERTS: { tone: Tone; text: ReactNode }[] = [
     tone: "basi",
     text: (
       <>
-        <Num>12</Num> bungkus di Kantin SMPN <Num>3</Num> basi dalam <Num>3</Num> hari
+        <Num>6</Num> bungkus di Warung Bu Sri kedaluwarsa dalam <Num>3</Num> hari
       </>
     ),
   },
@@ -25,15 +25,15 @@ const ALERTS: { tone: Tone; text: ReactNode }[] = [
     tone: "belum-bayar",
     text: (
       <>
-        Warung Pak Darto belum bayar <Num>21</Num> hari
+        Nota Warung Bu Sri belum lunas
       </>
     ),
   },
-  { tone: "retur", text: "Toko Maju Jaya: retur tinggi" },
+  { tone: "retur", text: "Toko Kelontong Pak Joko: 1 bungkus retur" },
 ];
 
 const LABEL =
-  "Ringkasan pemilik: uang masih di warung Rp1.240.000 di 9 warung, penjualan Oktober Rp6.850.000. Perlu perhatian: 12 bungkus di Kantin SMPN 3 basi dalam 3 hari; Warung Pak Darto belum bayar 21 hari; Toko Maju Jaya retur tinggi.";
+  "Ringkasan pemilik: uang masih di warung Rp132.500 di 2 warung, penjualan November Rp264.500. Perlu perhatian: 6 bungkus di Warung Bu Sri kedaluwarsa dalam 3 hari; nota Warung Bu Sri belum lunas; Toko Kelontong Pak Joko 1 bungkus retur.";
 
 export function DashboardMock() {
   return (
@@ -48,16 +48,16 @@ export function DashboardMock() {
               Uang masih di warung
             </span>
             <span className="font-mono text-2xl font-semibold tabular-nums md:text-[28px]">
-              Rp1.240.000
+              Rp132.500
             </span>
             <span className="text-[13px] text-ink-muted">
-              <Num>9</Num> warung
+              <Num>2</Num> warung
             </span>
           </div>
           <div className="flex flex-col gap-1">
-            <span className="text-xs font-semibold text-ink-subtle">Penjualan Oktober</span>
+            <span className="text-xs font-semibold text-ink-subtle">Penjualan November</span>
             <span className="font-mono text-2xl font-semibold tabular-nums md:text-[28px]">
-              Rp6.850.000
+              Rp264.500
             </span>
           </div>
         </div>
