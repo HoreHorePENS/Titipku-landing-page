@@ -19,7 +19,7 @@ type Product = {
 };
 
 export const PRODUCT: Product = {
-  name: "Keripik Pisang Original 100 g",
+  name: "Keripik Tempe Original 100 g",
   previous: 25,
   remaining: 6,
   returned: 2,

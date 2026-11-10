@@ -5,7 +5,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 // Toggles data-m-* flags; globals.css animates them. With no JS or reduced motion
 // no flags are set, so the mockups simply show their final state.
 
-const TIMING = { list: 500, select: 2000, req: 2800, accept: 4000, stamp: 4300, cycle: 8650 };
+// The map view shows until `list`; the list view then takes over for the rest of the cycle.
+const TIMING = { list: 2600, select: 4100, req: 4900, accept: 6100, stamp: 6400, cycle: 10750 };
 const MAX_CYCLES = 3;
 const STAMP_MS = 350;
 

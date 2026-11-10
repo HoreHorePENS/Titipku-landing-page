@@ -45,7 +45,7 @@ export function Hero() {
                 <ShopListMock />
               </div>
               <div className="absolute top-[170px] right-0 rotate-2">
-                <RequestCardMock />
+                <RequestCardMock device={HERO.requestDevice} />
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@ export function Hero() {
               <ShopListMock />
             </div>
             <div className="absolute top-[300px] right-2 rotate-2">
-              <RequestCardMock variant="compact" />
+              <RequestCardMock variant="compact" device={HERO.requestDevice} />
             </div>
           </div>
         </div>

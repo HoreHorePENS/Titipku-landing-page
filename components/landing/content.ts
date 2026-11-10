@@ -1,10 +1,10 @@
 // All landing page copy and links. Fields with `mobile`/`desktop` switch at the md breakpoint.
 
 export const LINKS = {
-  masuk: "/masuk",
-  daftar: "/daftar",
-  daftarPenitip: "/daftar?peran=penitip",
-  daftarWarung: "/daftar?peran=warung",
+  masuk: "https://titipku.faridpens.my.id/auth",
+  daftar: "https://titipku.faridpens.my.id/auth",
+  daftarPenitip: "https://titipku.faridpens.my.id/auth",
+  daftarWarung: "https://titipku.faridpens.my.id/auth",
 } as const;
 
 export const META = {
@@ -46,61 +46,81 @@ export const HERO = {
   ctaPenitip: "Cari warung untuk titip",
   ctaWarung: "Daftarkan warung saya",
   note: "Jalan di HP Android biasa. Tetap bisa mencatat saat sinyal lemah.",
+  requestDevice: "HP toko · Toko Kelontong Pak Joko",
   visualLabel:
-    "Contoh alur Titipku: penitip melihat daftar warung yang membuka titipan di sekitar Rungkut, Surabaya, lalu mengajukan titip ke Warung Bu Sri. Di HP warung, permintaan titip dari Keripik Pisang Rina berisi 40 bungkus disetujui.",
+    "Contoh alur Titipku: penitip membuka peta lalu daftar toko mitra di Surabaya dan mengajukan titip ke Toko Kelontong Pak Joko. Di HP toko, permintaan titip dari Keripik Tempe Mbak Ani berisi 30 bungkus disetujui.",
 } as const;
 
 // Shop list and request card mockups
 
 export type Shop = {
   name: string;
-  area: string;
-  accepts: string;
-  open: boolean;
+  category: string;
+  address: string;
+  note: string;
+  status: "open" | "partner";
 };
 
 export const SHOP_LIST = {
   time: "09.12",
-  title: "Cari warung",
-  search: "Rungkut, Surabaya",
-  city: "Surabaya",
+  app: {
+    initial: "T",
+    name: "Titipku",
+    role: "Penitip",
+    business: "Keripik Tempe Mbak Ani",
+    avatar: "A",
+  },
+  badge: "Peta Titip Jual",
+  title: "Peta Toko Mitra",
+  subtitle: "Temukan toko fisik yang siap menerima barang titipan konsinyasi produk UMKM Anda.",
+  views: { map: "Peta", list: "Daftar (2)" },
+  search: "Cari toko berdasarkan nama, alamat, atau kata kunci",
+  mapArea: "Sekitar Sukolilo",
+  mapAttribution: "© OpenStreetMap contributors",
   chips: [
-    { label: "Buka titipan", active: false },
-    { label: "Makanan ringan", active: true },
+    { label: "Semua Toko", active: true },
+    { label: "Warung Makan", active: false },
+    { label: "Toko Kelontong", active: false },
   ],
-  acceptsPrefix: "Menerima",
-  openLabel: "Buka titipan",
-  fullLabel: "Penuh",
-  action: "Ajukan titip",
+  openLabel: "Bisa Dititipi",
+  partnerLabel: "Mitra Aktif",
+  whatsapp: "WhatsApp",
+  action: "Titip Barang",
+  nav: ["Beranda", "Bukti Nota", "Toko Mitra", "Tagihan", "Produk"],
+  activeNav: "Toko Mitra",
   shops: [
-    { name: "Warung Bu Sri", area: "Rungkut", accepts: "Keripik, kue kering", open: true },
-    { name: "Kantin SMPN 3", area: "Gubeng", accepts: "Camilan, minuman", open: false },
-    { name: "Koperasi Kantor Pos", area: "Genteng", accepts: "Camilan, frozen food", open: true },
     {
-      name: "Toko Oleh-oleh Barokah",
-      area: "Wonokromo",
-      accepts: "Keripik, sambal kemasan",
-      open: true,
+      name: "Toko Kelontong Pak Joko",
+      category: "Toko Kelontong",
+      address: "Jl. Kertajaya Indah No. 45, Sukolilo, Surabaya",
+      note: "Toko kelontong lengkap untuk kebutuhan harian warga sekitar.",
+      status: "open",
+    },
+    {
+      name: "Warung Bu Sri",
+      category: "Warung Makan",
+      address: "Jl. Ngagel Jaya Selatan No. 21, Gubeng, Surabaya",
+      note: "Warung makan & jajanan rumahan dekat kampus, ramai pembeli tiap sore.",
+      status: "partner",
     },
   ] satisfies Shop[],
   label:
-    "Layar Cari warung di Titipku untuk area Rungkut, Surabaya: Warung Bu Sri (Rungkut) buka titipan, Kantin SMPN 3 (Gubeng) penuh, Koperasi Kantor Pos (Genteng) buka titipan, Toko Oleh-oleh Barokah (Wonokromo) buka titipan.",
+    "Layar Peta Toko Mitra di aplikasi Titipku untuk penitip, tampilan daftar: Toko Kelontong Pak Joko (Jl. Kertajaya Indah No. 45, Sukolilo, Surabaya) bisa dititipi; Warung Bu Sri (Jl. Ngagel Jaya Selatan No. 21, Gubeng, Surabaya) sudah menjadi mitra aktif.",
 } as const;
 
 export const REQUEST = {
   device: "HP warung · Warung Bu Sri",
   title: "Permintaan titip baru",
   fromLabel: "Dari",
-  from: "Keripik Pisang Rina",
+  from: "Keripik Tempe Mbak Ani",
   productsLabel: "Produk",
-  products: "Keripik Pisang Original 100 g, Balado 100 g",
+  products: "Keripik Tempe Original 100 g, Pedas 100 g",
   qtyLabel: "Jumlah",
-  qty: "40 bungkus",
+  qty: "30 bungkus",
   pending: "Menunggu",
   approved: "Disetujui",
   reject: "Tolak",
   accept: "Terima",
-  stamp: "DISETUJUI",
 } as const;
 
 // Audience
@@ -115,7 +135,7 @@ export const AUDIENCE = {
     },
     {
       title: "Warung",
-      desc: "Tempat yang membuka titipan dan mendapat bagi hasil.",
+      desc: "Tempat yang membuka titipan dan mencatat penjualan dengan nota.",
       items: ["Warung kelontong", "Kantin sekolah/kantor", "Koperasi", "Toko oleh-oleh"],
     },
   ],
@@ -164,7 +184,7 @@ export type StepCardId =
 export type Step = { title: string; desc: string; card: StepCardId };
 
 export const HOW_IT_WORKS = {
-  title: "Dari cari warung sampai bagi hasil",
+  title: "Dari cari warung sampai nota penjualan",
   subtitle: "Pilih peranmu untuk melihat langkahnya. Semuanya dikerjakan dari HP.",
   tabsLabel: "Pilih peran",
   tracks: [
@@ -205,27 +225,27 @@ export const HOW_IT_WORKS = {
       steps: [
         {
           title: "Daftarkan warungmu",
-          desc: "Isi nama, alamat, dan titik lokasi warung. Warungmu muncul di pencarian penitip sekitar.",
+          desc: "Isi nama, kategori, alamat, dan foto warung, lalu tandai lokasinya di peta. Warungmu langsung muncul di pencarian penitip sekitar.",
           card: "shop",
         },
         {
-          title: "Atur titipan yang diterima",
-          desc: "Pilih jenis produk yang boleh dititipkan. Matikan “Buka titipan” saat rak sedang penuh.",
+          title: "Buka atau tutup titipan",
+          desc: "Warung yang sedang menerima titipan tampil di peta penitip. Rak penuh? Tutup titipan sementara, lalu buka lagi kapan saja.",
           card: "accepts",
         },
         {
-          title: "Terima atau tolak permintaan",
-          desc: "Lihat produk dan jumlahnya dulu. Warung yang memutuskan.",
+          title: "Terima atau tolak pengajuan",
+          desc: "Lihat penitip, jumlah barang, dan nilai titipnya dulu. Warung yang memutuskan.",
           card: "review",
         },
         {
-          title: "Jual barang titipan",
-          desc: "Pajang di rak seperti biasa. Stok dan barang terjual tercatat di Titipku.",
+          title: "Cek detail titipan",
+          desc: "Lihat produk, jumlah, masa simpan, dan harga titip dari setiap mitra. Hubungi penitip lewat WhatsApp bila perlu.",
           card: "sell",
         },
         {
-          title: "Terima bagi hasil",
-          desc: "Dapat pemasukan tambahan dari setiap titipan yang laku, sesuai kesepakatan dengan penitip.",
+          title: "Catat nota penjualan",
+          desc: "Hitung barang terjual dan retur, pilih status bayar, lalu terbitkan nota. Kirim lewat WhatsApp atau cetak sebagai PDF.",
           card: "share",
         },
       ],
@@ -242,81 +262,159 @@ export const HOW_IT_WORKS = {
 export const STEP_CARDS = {
   product: {
     label:
-      "Contoh: formulir produk Keripik Pisang Original, ukuran 100 g, harga titip Rp3.000, umur simpan 30 hari.",
-    name: { label: "Nama", value: "Keripik Pisang Original" },
-    details: [
-      { label: "Ukuran", value: "100 g" },
-      { label: "Harga titip", value: "Rp3.000" },
-      { label: "Umur simpan", value: "30 hari" },
+      "Contoh: formulir tambah produk Keripik Tempe Original 100 g dengan foto, harga titip Rp8.000, harga jual Rp10.000, masa simpan 90 hari, status aktif.",
+    title: "Tambah Produk Baru",
+    photo: { label: "Foto produk", actions: ["Ganti foto", "Ambil dari kamera", "Hapus"] },
+    fields: [
+      { label: "Nama Produk", value: "Keripik Tempe Original 100 g" },
+      { label: "Harga Titip", value: "Rp8.000" },
+      { label: "Harga Jual ke Konsumen (opsional)", value: "Rp10.000" },
+      { label: "Masa Simpan (Hari)", value: "90" },
     ],
-    submit: "Simpan produk",
+    active: "Status Produk Aktif",
+    cancel: "Batal",
+    submit: "Tambah Produk",
   },
   search: {
     label:
-      "Contoh: peta warung di sekitar Rungkut, Surabaya. Warung Bu Sri terdekat dan masih membuka titipan.",
+      "Contoh: peta toko mitra di sekitar Sukolilo, Surabaya. Toko Kelontong Pak Joko terdekat dan bisa dititipi.",
   },
   apply: {
     label:
-      "Contoh: permintaan titip ke Warung Bu Sri berisi Keripik Pisang Original 20 bungkus dan Balado 20 bungkus, total 40 bungkus, sudah terkirim.",
-    title: "Ajukan titip ke Warung Bu Sri",
+      "Contoh: modal ajukan titip-jual ke Toko Kelontong Pak Joko berisi 3 produk pilihan senilai Rp25.000.",
+    title: "Ajukan titip-jual",
+    shop: "Toko Kelontong Pak Joko · Toko Kelontong",
+    address: "Jl. Kertajaya Indah No. 45, Sukolilo, Surabaya",
+    shopNeedsTitle: "Produk yang dicari toko",
+    shopNeeds: "Toko kelontong lengkap untuk kebutuhan harian warga sekitar.",
+    selectedLabel: "3 dipilih",
+    sectionTitle: "Produk yang ingin dititipkan",
     items: [
-      { name: "Pisang Original", qty: "20" },
-      { name: "Pisang Balado", qty: "20" },
+      { name: "Keripik Tempe Daun Je...", price: "Rp8.500", qty: "1" },
+      { name: "Keripik Tempe Original ...", price: "Rp8.000", qty: "1" },
+      { name: "Keripik Tempe Pedas 1...", price: "Rp8.500", qty: "1" },
     ],
-    totalLabel: "Jumlah",
-    total: "40 bungkus",
-    sent: "Permintaan terkirim ✓",
+    noteLabel: "Pesan untuk toko (opsional)",
+    notePlaceholder: "Contoh: Kemasan standing pouch, tahan 3 bulan. Bisa antar setiap Senin.",
+    summaryQty: "3 pcs",
+    summaryValueLabel: "Perkiraan nilai titip",
+    summaryValue: "Rp25.000",
+    cancel: "Batal",
+    submit: "Kirim pengajuan",
   },
   deliver: {
     label:
-      "Contoh: permintaan titip dari Keripik Pisang Rina, 40 bungkus, sudah disetujui Warung Bu Sri. Barang siap diantar.",
-    note: "Siap diantar ke Warung Bu Sri",
+      "Contoh: notifikasi pengajuan disetujui dari Toko Kelontong Pak Joko kini menjadi mitramu.",
+    title: "Notifikasi",
+    items: [
+      {
+        title: "Pengajuan disetujui",
+        time: "2 mnt lalu",
+        message: "Toko Kelontong Pak Joko kini menjadi mitramu.",
+        action: "Lihat",
+      },
+      {
+        title: "Pengajuan disetujui",
+        time: "57 mnt lalu",
+        message: "Warung Bu Sri kini menjadi mitramu.",
+        action: "Lihat",
+      },
+    ],
   },
   monitor: {
     label:
-      "Contoh: Keripik Pisang Original di Warung Bu Sri, sisa di rak 6, retur 2, terjual 17 senilai Rp51.000.",
+      "Contoh: layar nota N-261110-0002 di Warung Bu Sri dengan status BELUM LUNAS, total tagihan Rp132.500 dan sisa piutang Rp132.500.",
+    invoiceNo: "Nota N-261110-0002",
+    statusBadge: "BELUM LUNAS",
+    meta: "10 Nov 2026, 09.30 • Warung Bu Sri (Jl. Ngagel Jaya Selatan No. 21)",
+    receivedBy: "Sri Wahyuni",
+    partner: "Sri Wahyuni",
+    sectionTitle: "RINCIAN BARANG TITIPAN",
+    items: [
+      { variant: "Daun Jeruk", desc: "100 g", sold: "3", subtotal: "Rp25.500" },
+      { variant: "Original", desc: "100 g", sold: "7", subtotal: "Rp56.000" },
+      { variant: "Pedas", desc: "100 g", sold: "6", subtotal: "Rp51.000" },
+    ],
+    totalLabel: "Total Tagihan:",
+    totalValue: "Rp132.500",
+    paidLabel: "Telah Dibayar:",
+    paidValue: "Rp0",
+    remainingLabel: "Sisa Piutang:",
+    remainingValue: "Rp132.500",
+    whatsapp: "WhatsApp",
+    exportPdf: "Export PDF",
   },
   shop: {
     label:
-      "Contoh: formulir pendaftaran Warung Bu Sri di Jl. Rungkut Asri 12, Surabaya, dengan titik lokasi di peta.",
-    name: { label: "Nama", value: "Warung Bu Sri" },
-    address: { label: "Alamat", value: "Jl. Rungkut Asri 12, Surabaya" },
-    submit: "Daftarkan warung",
+      "Contoh: formulir pendaftaran Warung Bu Sri sebagai pemilik toko dengan nama, kategori Warung Makan, alamat, foto warung, dan penanda GPS di peta.",
+    role: "Pemilik Toko",
+    name: "Warung Bu Sri",
+    category: "Warung Makan",
+    photo: "warung.jpg",
+    address: "Jl. Ngagel Jaya Selatan No. 21, Gubeng, Surabaya",
+    gps: "Gunakan Lokasi GPS",
+    submit: "Daftarkan Warung",
   },
   accepts: {
     label:
-      "Contoh: Warung Bu Sri menerima keripik, kue kering, dan sambal kemasan, tidak menerima frozen food, dengan status buka titipan aktif.",
-    title: "Titipan yang diterima",
-    options: [
-      { label: "Keripik", on: true },
-      { label: "Kue kering", on: true },
-      { label: "Sambal kemasan", on: true },
-      { label: "Frozen food", on: false },
-    ],
-    toggle: "Buka titipan",
+      "Contoh: kartu Warung Bu Sri dengan badge Warung Makan, Menerima Titipan di Peta, dan tombol Tutup Titipan Sementara.",
+    shopName: "Warung Bu Sri",
+    category: "Warung Makan",
+    statusBadge: "Menerima Titipan di Peta",
+    address: "Jl. Ngagel Jaya Selatan No. 21, Gubeng, Surabaya",
+    coords: "Koordinat: -7.2905, 112.7521",
+    action: "Tutup Titipan Sementara",
   },
   review: {
     label:
-      "Contoh: permintaan titip baru dari Keripik Pisang Rina, 40 bungkus, menunggu keputusan warung: tolak atau terima.",
+      "Contoh: kartu pengajuan Keripik Tempe Mbak Ani berisi 3 produk, 16 pcs senilai Rp132.500 dengan tombol Tolak, Setujui, dan Detail.",
+    title: "Keripik Tempe Mbak Ani",
+    statusBadge: "Menunggu persetujuan",
+    meta: "Ani Lestari · 10 Nov 2026",
+    summary: "3 produk · 16 pcs · nilai titip Rp132.500",
+    reject: "Tolak",
+    accept: "Setujui",
+    detail: "Detail",
   },
   sell: {
     label:
-      "Contoh: barang titipan di rak Warung Bu Sri. Pisang Original terjual 17, Pisang Balado terjual 16, Singkong Pedas terjual 9, total 42.",
-    title: "Titipan di rak",
-    soldLabel: "terjual",
+      "Contoh: detail rencana titipan dari Keripik Tempe Mbak Ani berisi produk, masa simpan, harga titip, dan tombol buat nota penjualan.",
+    partner: "Keripik Tempe Mbak Ani",
+    meta: "Mitra aktif · diajukan 10 Nov 2026",
+    owner: "Ani Lestari",
+    address: "Jl. Sukolilo No. 12, Surabaya",
+    sectionTitle: "Rencana titipan (3 produk)",
     items: [
-      { name: "Pisang Original", sold: "17" },
-      { name: "Pisang Balado", sold: "16" },
-      { name: "Singkong Pedas", sold: "9" },
+      {
+        name: "Keripik Tempe Original 100 g",
+        details: "7 pcs · tahan 90 hari · jual Rp10.000",
+        price: "Rp8.000",
+      },
+      {
+        name: "Keripik Tempe Pedas 100 g",
+        details: "6 pcs · tahan 90 hari · jual Rp10.000",
+        price: "Rp8.500",
+      },
     ],
-    total: { label: "Total terjual", value: "42" },
+    totalLabel: "16 pcs · total nilai titip",
+    totalValue: "Rp132.500",
+    action: "Buat nota penjualan",
   },
   share: {
     label:
-      "Contoh: penjualan barang titipan Rp143.000 di Warung Bu Sri, bagi hasil sesuai kesepakatan dengan penitip.",
-    rows: [{ label: "Penjualan titipan", value: "Rp143.000" }],
-    title: "Bagi hasil · Warung Bu Sri",
-    note: "Bagi hasil sesuai kesepakatan",
+      "Contoh: konfirmasi pembayaran nota penjualan untuk Keripik Tempe Mbak Ani dengan 16 terjual, 1 retur, total tagihan Rp132.500.",
+    title: "Konfirmasi Pembayaran Nota",
+    subtitle: "Tentukan status pembayaran hasil penjualan untuk Keripik Tempe Mbak Ani.",
+    partner: "Keripik Tempe Mbak Ani (Ani Lestari)",
+    sold: "16 bungkus / pcs",
+    returned: "1 bks",
+    total: "Rp132.500",
+    statusLabel: "Status Pembayaran ke Penitip",
+    statusValue: "Lunas (Langsung Dibayarkan Hari Ini)",
+    methodLabel: "Metode Pembayaran",
+    methodValue: "Tunai (Cash)",
+    back: "← Kembali",
+    submit: "Terbitkan Nota (Rp132.500)",
   },
 } as const satisfies Record<StepCardId, { label: string; [key: string]: unknown }>;
 
@@ -340,7 +438,7 @@ export const BENEFITS = {
       points: [
         "Tentukan sendiri titipan yang diterima",
         "Terima atau tolak setiap permintaan",
-        "Dapat bagi hasil dari barang yang laku, tanpa modal stok",
+        "Dapat pemasukan dari barang yang laku, tanpa modal stok",
       ],
     },
   ],

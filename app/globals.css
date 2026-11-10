@@ -88,6 +88,17 @@ body {
 /* Without the demo (SSR, no JS, reduced motion) the pill shows the final state. */
 [data-req-pill="wait"] {
   opacity: 0;
+  visibility: hidden;
+}
+
+[data-req-actions] {
+  display: none;
+}
+
+/* Without the demo the phone shows the list view; the map only appears while it runs. */
+[data-shop-map] {
+  opacity: 0;
+  visibility: hidden;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -154,35 +165,44 @@ body {
       transform 400ms ease-out;
   }
   [data-req-pill] {
-    transition: opacity 200ms ease-out;
+    transition:
+      opacity 200ms ease-out,
+      visibility 200ms;
+  }
+  [data-m-stamp="off"] [data-req-actions] {
+    display: block;
+  }
+  /* Map ↔ list: the map covers the list while data-m-list is off. */
+  [data-shop-map] {
+    transition:
+      opacity 300ms ease-out,
+      visibility 300ms;
+  }
+  [data-m-list="off"] [data-shop-map] {
+    opacity: 1;
+    visibility: visible;
+  }
+  [data-view-indicator] {
+    transition: translate 300ms ease-in-out;
+  }
+  [data-m-list="off"] [data-view-indicator] {
+    translate: 0;
+  }
+  [data-view-tab] {
+    transition: color 300ms ease-out;
+  }
+  [data-m-list="off"] [data-view-tab="map"] {
+    color: var(--ink);
+  }
+  [data-m-list="off"] [data-view-tab="list"] {
+    color: var(--ink-muted);
   }
   [data-m-stamp="off"] [data-req-pill="wait"] {
     opacity: 1;
+    visibility: visible;
   }
   [data-m-stamp="off"] [data-req-pill="done"] {
     opacity: 0;
-  }
-  /* The stamp already has rotate: -4deg; the keyframes add the extra -8deg. */
-  [data-m-stamp="off"] [data-req-stamp] {
-    opacity: 0;
-    transition: opacity 200ms ease-out;
-  }
-  [data-m-stamp="on"] [data-req-stamp] {
-    animation: stamp-in 350ms cubic-bezier(0.5, 0, 0.75, 0) both;
-  }
-  @keyframes stamp-in {
-    0% {
-      opacity: 0;
-      transform: scale(1.6) rotate(-8deg);
-    }
-    75% {
-      opacity: 1;
-      transform: scale(0.96) rotate(0deg);
-    }
-    100% {
-      opacity: 1;
-      transform: none;
-    }
   }
 
   /* How it works timeline; RoleTabs replays it on tab change. */
@@ -245,13 +265,16 @@ body {
   [data-step-card],
   [data-shop-card],
   [data-req-card],
-  [data-req-stamp],
   [data-req-pill="done"] {
     opacity: 1 !important;
     transform: none !important;
   }
-  [data-req-pill="wait"] {
+  [data-req-pill="wait"],
+  [data-shop-map] {
     opacity: 0 !important;
+  }
+  [data-req-actions] {
+    display: none !important;
   }
   [data-steps]::before,
   [data-step-line] {
